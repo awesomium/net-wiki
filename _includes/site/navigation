@@ -12,62 +12,62 @@
         
         
         <script>
-		(function() {
-			var $$ = function(selector) {
-				return Array.prototype.slice.call(document.querySelectorAll(selector));
-			}
-			document.addEventListener("DOMContentLoaded", function() {
-				var checkbox;
-				var result = document.querySelector("#result");
-				$$(".switch").forEach(function(switchControl) {
-					if (switchControl.className === ("switch off")) {
-						switchControl.lastElementChild.checked = false;
-					}
-					switchControl.addEventListener("click", function() {
-						if (switchControl.className === "switch on") {
-							switchControl.className = 'switch off';
-						} else {
-							switchControl.className = ("switch on");
-						}
-						checkbox = switchControl.lastElementChild;
-						checkbox.checked = !checkbox.checked;
-						if (checkbox.checked === true) {
-							location.href = "http://wiki.awesomium.com";
-						} else {
-							location.href = "http://wiki.awesomium.net";
-						}
-					}, false);
-				});
-				toggleDotNetLanguage(false);
-				if (($( ".csharp" ).length === 0) || ($( ".vbnet" ).length === 0)) {
-					$(".langswitch-container").hide();
-				} else {
-					$$(".langswitch").forEach(function(switchControl) {
-						switchControl.addEventListener("click", function() {
-							if (switchControl.className === "langswitch on") {
-								switchControl.className = 'langswitch off';
-							} else {
-								switchControl.className = ("langswitch on");
-							}							
-							checkbox = switchControl.lastElementChild;
-							checkbox.checked = !checkbox.checked;
-							toggleDotNetLanguage(checkbox.checked);
-						}, false);
-					});
-				}
-			}, false);
-		})();
-		
-		function toggleDotNetLanguage(checkboxChecked) {			
-			if (checkboxChecked === true) {
-				$( ".csharp" ).parent().closest("div").hide();
-				$( ".vbnet" ).parent().closest("div").show();
-			} else {
-				$( ".vbnet" ).parent().closest("div").hide();
-				$( ".csharp" ).parent().closest("div").show();
-			}
-		}
-	    </script>
+        (function() {
+            var $$ = function(selector) {
+                return Array.prototype.slice.call(document.querySelectorAll(selector));
+            }
+            document.addEventListener("DOMContentLoaded", function() {
+                var checkbox;
+                var result = document.querySelector("#result");
+                $$(".switch").forEach(function(switchControl) {
+                    if (switchControl.className === ("switch off")) {
+                        switchControl.lastElementChild.checked = false;
+                    }
+                    switchControl.addEventListener("click", function() {
+                        if (switchControl.className === "switch on") {
+                            switchControl.className = 'switch off';
+                        } else {
+                            switchControl.className = ("switch on");
+                        }
+                        checkbox = switchControl.lastElementChild;
+                        checkbox.checked = !checkbox.checked;
+                        if (checkbox.checked === true) {
+                            location.href = "http://wiki.awesomium.com";
+                        } else {
+                            location.href = "http://wiki.awesomium.net";
+                        }
+                    }, false);
+                });
+                toggleDotNetLanguage(false);
+                if (($( ".language-csharp" ).length === 0) || ($( ".language-vbnet" ).length === 0)) {
+                    $(".langswitch-container").hide();
+                } else {
+                    $$(".langswitch").forEach(function(switchControl) {
+                        switchControl.addEventListener("click", function() {
+                            if (switchControl.className === "langswitch on") {
+                                switchControl.className = 'langswitch off';
+                            } else {
+                                switchControl.className = ("langswitch on");
+                            }                            
+                            checkbox = switchControl.lastElementChild;
+                            checkbox.checked = !checkbox.checked;
+                            toggleDotNetLanguage(checkbox.checked);
+                        }, false);
+                    });
+                }
+            }, false);
+        })();
+        
+        function toggleDotNetLanguage(checkboxChecked) {
+            if (checkboxChecked === true) {
+                $( ".language-csharp" ).parent().closest("div").hide();
+                $( ".language-vbnet" ).parent().closest("div").show();
+            } else {
+                $( ".language-vbnet" ).parent().closest("div").hide();
+                $( ".language-csharp" ).parent().closest("div").show();
+            }
+        }
+        </script>
         
         <h3 class="header">Categories</h3>
         {% for g in site.groups %}
