@@ -247,80 +247,80 @@ The following list explains some of the resons for this change:
 
 * In the rare scenario that your code used CLR's default parameterless constructror available with all value types, this code will have to be refactored since `JSValue`, as a reference type, does no contain a parameterless constructor:
 	
-	##### Old Method:
-	
-	{% highlight csharp %}
-	// Create a local object.
-	JSObject myObject = new JSObject();
-	// Create a JavaScript value, using the parameterless constructor.
-	// This would create an uninitialized JSValue that Awesomium.NET
-	// would translate to JSValue.Undefined.
-	JSValue myValue = new JSValue();
-	// Would assign 'undefined' to 'myProperty'.
-	myObject[ "myProperty" ] = myValue;
-	{% endhighlight %}
-	{% highlight vbnet %}
-	' Create a local object.
-	Dim myObject As JSObject = New JSObject()
-	' Create a JavaScript value, using the parameterless constructor.
-	' This would create an uninitialized JSValue that Awesomium.NET
-	' would translate to JSValue.Undefined.
-	Dim myValue As JSValue = New JSValue()
-	' Would assign 'undefined' to 'myProperty'.
-	myObject("myProperty") = myValue
-	{% endhighlight %}
-	
-	##### New Method:
-	
-	{% highlight csharp %}
-	// Create a local object.
-	JSObject myObject = new JSObject();
-	// There's no parameterless constructor to JSValue.
-	// You must explicitly specify the value. 
-	JSValue myValue = JSValue.Undefined;
-	// Will assign 'undefined' to 'myProperty'.
-	myObject[ "myProperty" ] = myValue;
-	{% endhighlight %}
-	{% highlight vbnet %}
-	' Create a local object.
-	Dim myObject As JSObject = New JSObject()
-	' There's no parameterless constructor to JSValue.
-	' You must explicitly specify the value. 
-	Dim myValue As JSValue = JSValue.Undefined
-	' Will assign 'undefined' to 'myProperty'.
-	myObject("myProperty") = myValue
-	{% endhighlight %}
+  ##### Old Method:
+
+  {% highlight csharp %}
+  // Create a local object.
+  JSObject myObject = new JSObject();
+  // Create a JavaScript value, using the parameterless constructor.
+  // This would create an uninitialized JSValue that Awesomium.NET
+  // would translate to JSValue.Undefined.
+  JSValue myValue = new JSValue();
+  // Would assign 'undefined' to 'myProperty'.
+  myObject[ "myProperty" ] = myValue;
+  {% endhighlight %}
+  {% highlight vbnet %}
+  ' Create a local object.
+  Dim myObject As JSObject = New JSObject()
+  ' Create a JavaScript value, using the parameterless constructor.
+  ' This would create an uninitialized JSValue that Awesomium.NET
+  ' would translate to JSValue.Undefined.
+  Dim myValue As JSValue = New JSValue()
+  ' Would assign 'undefined' to 'myProperty'.
+  myObject("myProperty") = myValue
+  {% endhighlight %}
+
+  ##### New Method:
+
+  {% highlight csharp %}
+  // Create a local object.
+  JSObject myObject = new JSObject();
+  // There's no parameterless constructor to JSValue.
+  // You must explicitly specify the value. 
+  JSValue myValue = JSValue.Undefined;
+  // Will assign 'undefined' to 'myProperty'.
+  myObject[ "myProperty" ] = myValue;
+  {% endhighlight %}
+  {% highlight vbnet %}
+  ' Create a local object.
+  Dim myObject As JSObject = New JSObject()
+  ' There's no parameterless constructor to JSValue.
+  ' You must explicitly specify the value. 
+  Dim myValue As JSValue = JSValue.Undefined
+  ' Will assign 'undefined' to 'myProperty'.
+  myObject("myProperty") = myValue
+  {% endhighlight %}
 
 * As a reference type, JSValue is now *nullable*. Assigning or passing a null `JSValue` reference, will effectively assign or pass `JSValue.Null`:
 
-	{% highlight csharp %}
-	// Create a local object.
-	JSObject myObject = new JSObject();
-	// Will assign 'null' to 'myProperty'.
-	myObject[ "myProperty" ] = null;
-	{% endhighlight %}
-	{% highlight vbnet %}
-	' Create a local object.
-	Dim myObject As JSObject = New JSObject()
-	' Will assign 'null' to 'myProperty'.
-	myObject("myProperty") = Nothing
-	{% endhighlight %}
+  {% highlight csharp %}
+  // Create a local object.
+  JSObject myObject = new JSObject();
+  // Will assign 'null' to 'myProperty'.
+  myObject[ "myProperty" ] = null;
+  {% endhighlight %}
+  {% highlight vbnet %}
+  ' Create a local object.
+  Dim myObject As JSObject = New JSObject()
+  ' Will assign 'null' to 'myProperty'.
+  myObject("myProperty") = Nothing
+  {% endhighlight %}
 
-    A null `JSValue` reference can also be implicitly converted to `Boolean`:
+  A null `JSValue` reference can also be implicitly converted to `Boolean`:
 
-	{% highlight csharp %}
-	JSValue myValue = null;
+  {% highlight csharp %}
+  JSValue myValue = null;
 
-    // Will be 'false'
-    if ( !myValue )
-        return;
-	{% endhighlight %}
-	{% highlight vbnet %}
-	Dim myValue As JSValue = Nothing
-
-    ' Will be 'false'
-    if Not CBool(myValue) Then Return
-	{% endhighlight %}
+  // Will be 'false'
+  if ( !myValue )
+      return;
+  {% endhighlight %}
+  {% highlight vbnet %}
+  Dim myValue As JSValue = Nothing
+  
+  ' Will be 'false'
+  if Not CBool(myValue) Then Return
+  {% endhighlight %}
 
 
 > **All members of the Awesomium.NET Javascript Integration API, are guaranteed to never return a null JSValue reference**. In the worse case, they will return `JSValue.Undefined`.
