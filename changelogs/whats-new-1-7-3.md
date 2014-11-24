@@ -2,7 +2,7 @@
 layout: page
 title : What's New in 1.7.3
 group: Changelogs
-weight: 2
+weight: 4
 
 ---
 

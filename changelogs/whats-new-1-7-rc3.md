@@ -2,7 +2,7 @@
 layout: page
 title : What's New in 1.7 RC3
 group: Changelogs
-weight: 6
+weight: 8
 
 ---
 

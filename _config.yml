@@ -24,6 +24,8 @@ groups:
     path: /getting-started
   - name: General Use
     path: /general-use
+  - name: JavaScript Integration
+    path: /javascript
   - name: WPF
     path: /wpf
   - name: Windows Forms
@@ -32,8 +34,6 @@ groups:
     path: /monomac
   - name: Unity
     path: /unity
-  - name: Tutorials
-    path: /tutorials
   - name: Changelogs
     path: /changelogs
 
