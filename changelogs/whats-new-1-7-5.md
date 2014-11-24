@@ -18,7 +18,7 @@ We are happy to announce the release of **Awesomium.NET 1.7.5b**. This is a **be
 
 With this release we are introducing many important new features and improvements. Some of them may require refactoring your code.
 
-> Please read: **[Important Changes in v1.7.5](breaking-changes.html)** for a list and presentation of important API changes in version 1.7.5 that require refectoring your code.
+> <span style="color:red;">Please read: **[Breaking API Changes in v1.7.5](breaking-changes.html)** for a list and presentation of important API changes in version 1.7.5 that require refectoring your code.</span>
 
 Here is a short presentation of some of these new features and improvements:
 
