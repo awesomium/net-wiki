@@ -10,11 +10,11 @@ weight: 1
 
 <p class="intro">This article presents important changes in version <b>1.7.5</b> that require refactoring your code.</p>
 
-#### For a full list of new features and changes in version 1.7.5, read: [What's New in 1.7.5](whats-new-1-7-5.md).
+#### For a full list of new features and changes in version 1.7.5, read: [What's New in 1.7.5](whats-new-1-7-5.html).
 
 ## Breaking Changes
 
-### 1. [`JSObject.Bind(String,Boolean,JavascriptMethodEventHandler)`](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_Bind_4) is obsolete.
+### 1. [`JSObject.Bind(...,JavascriptMethodEventHandler)`](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_Bind_4) is obsolete.
 
 The **obsolete** [`JSObject.Bind`](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_Bind_4) was used to create a custom JavaScript method and bind a managed handler to it. The same method was used to create both *synchronous* and *asynchronous* methods that were bound to a [`JavascriptMethodEventHandler`](http://docs.awesomium.net/?tc=T_Awesomium_Core_JavascriptMethodEventHandler).
 
