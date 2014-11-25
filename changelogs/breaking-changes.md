@@ -14,7 +14,7 @@ weight: 1
 
 ## Breaking Changes
 
-The following list of changes, require refactoring your code.
+A list of changes in version 1.7.5 that require refactoring your code:
 
 ### 1. [`JSObject.Bind(...,JavascriptMethodEventHandler)`](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_Bind_4) is obsolete.
 
@@ -446,7 +446,7 @@ End If
 
 ## Important Changes
 
-The following list of changes do not require refactoring your code but your application will perform better and your code can be simplified if taken into consideration.
+The following changes do not require refactoring your code but your application will perform better and your code can be simplified by taking these changes into consideration.
 
 ### 1. The behavior and signature of the [`DocumentReady`](http://docs.awesomium.net/?tc=E_Awesomium_Core_IWebView_DocumentReady) event, has changed.
 
@@ -465,7 +465,7 @@ The following list of changes do not require refactoring your code but your appl
 
 * Handlers of a [`DocumentReady`](http://docs.awesomium.net/?tc=E_Awesomium_Core_IWebView_DocumentReady) event are now executed in an *asynchronous* **[Javascript Execution Context (JEC)](../javascript/jec.html)**. This technology is new in version 1.7.5. Methods executed in a JEC, enjoy certain benefits such as:
 
-  * `JSObject` instances created or acquired in a JEC, do not need to be explicitly disposed. They are automatically exposed upon exiting the method associated with the JEC.
+  * `JSObject` instances created or acquired in a JEC, do not need to be explicitly disposed. They are automatically disposed upon exiting the method associated with the JEC.
   * Errors or exceptions that occur within a JEC, are silently handled and propagated to the [JavaScript console](http://docs.awesomium.net/?tc=E_Awesomium_Core_WebView_ConsoleMessage).
   * Code executing in an *asynchronous* JEC, has immediate access to essential objects of the loaded page's current JavaScript environment (such as *`window`* and *`document`*) through the new [`Global`](http://docs.awesomium.net/?tc=T_Awesomium_Core_Global) class, without any need to perform additional synchronous calls to the child-process to acquire these objects. In particular, the [`DocumentReadyEventArgs.Environment`](http://docs.awesomium.net/?tc=P_Awesomium_Core_DocumentReadyEventArgs_Environment) property provides an instance of `Global` when [`DocumentReadyEventArgs.ReadyState`](http://docs.awesomium.net/?tc=P_Awesomium_Core_DocumentReadyEventArgs_ReadyState) is [`Loaded`](http://docs.awesomium.net/?tc=T_Awesomium_Core_DocumentReadyState).
 
