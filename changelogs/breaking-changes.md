@@ -478,7 +478,6 @@ webView.DocumentReady += OnDocumentReady;
 
 [...]
 
-
 private void OnDocumentReady( Object sender, DocumentReadyEventArgs e )
 {
     // If your code needs to access and manipulate the DOM,
@@ -500,12 +499,12 @@ private void OnDocumentReady( Object sender, DocumentReadyEventArgs e )
     var props = new JSObject();
     // Specify the property name, the data property descriptor and initial value.
     props[ "myProperty", new JSPropertyDescriptor() { Writable = false } ] = "Ready";
-
     // Create a remote object using generics of the global Object and
     // assign it to a global variable. Note that members of the Global
     // class, are exposed as 'dynamic'.
     global.window.myVar = global.Object.create( global.Object.prototype, props ); 
 
+    // More examples.
     var myDiv = global.document.getElementById( "myDiv" );
 
     if ( !myDiv )
@@ -528,7 +527,6 @@ AddHandler webView.DocumentReady, AddressOf OnDocumentReady
 
 [...]
 
-
 Private Sub OnDocumentReady(sender As Object, e As DocumentReadyEventArgs)
     ' If your code needs to access and manipulate the DOM,
     ' wait for it be fully loaded.
@@ -547,12 +545,12 @@ Private Sub OnDocumentReady(sender As Object, e As DocumentReadyEventArgs)
     Dim props As New JSObject()
     ' Specify the property name, the data property descriptor and initial value.
     props("myProperty", New JSPropertyDescriptor() With { .Writable = false }) = "Ready"
-
     ' Create a remote object using generics of the global Object and
     ' assign it to a global variable. Note that members of the Global
     ' class, are exposed as 'dynamic'.
     global.window.myVar = global.Object.create(global.Object.prototype, props)
 
+    ' More examples.
     Dim myDiv = global.document.getElementById("myDiv")
 
     If Not myDiv Then Return
