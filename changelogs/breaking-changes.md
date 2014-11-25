@@ -31,7 +31,7 @@ The new regular API includes four (4) methods to create *synchronous* JavaScript
 
 * [`JSObject.Bind(JavascriptMethodHandler)`](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_Bind)
 
-    The new [`JavascriptMethodHandler`](http://docs.awesomium.net/?tc=T_Awesomium_Core_JavascriptMethodHandler) returns a `JSValue` directly from the handler. You no longer need to check [`JavascriptMethodEventArgs.MustReturnValue`](http://docs.awesomium.net/?tc=P_Awesomium_Core_JavascriptMethodEventArgs_MustReturnValue) since a `JavascriptMethodHandler` can only handle a *synchronounous* JavaScript method and you cannot use [`JavascriptMethodEventArgs.Result`](http://docs.awesomium.net/?tc=P_Awesomium_Core_JavascriptMethodEventArgs_Result) (which is also **obsolete** -- see breaking change **n.3** below) since the result is returned directly from the `JavascriptMethodHandler` method.
+    The new [`JavascriptMethodHandler`](http://docs.awesomium.net/?tc=T_Awesomium_Core_JavascriptMethodHandler) returns a `JSValue` directly from the handler. You no longer need to check [`JavascriptMethodEventArgs.MustReturnValue`](http://docs.awesomium.net/?tc=P_Awesomium_Core_JavascriptMethodEventArgs_MustReturnValue) since a `JavascriptMethodHandler` can only handle a *synchronounous* JavaScript method and you cannot use [`JavascriptMethodEventArgs.Result`](http://docs.awesomium.net/?tc=P_Awesomium_Core_JavascriptMethodEventArgs_Result) (which is also **obsolete**) since the result is returned directly from the `JavascriptMethodHandler` method.
 
     > In this overload of `JSObject.Bind`, the name of the new custom JavaScript method added to the JavaScript *`Object`*, is determined by the name of the managed handler. Therefore, you cannot pass a method with a special name (such as an anonymous method or a lambda expression) to this overload (see [documentation](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_Bind)).
 * [`JSObject.Bind(JSFunctionHandler)`](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_Bind_1)
@@ -153,7 +153,7 @@ if ( myGlobalObject == null )
 using ( myGlobalObject )
 {
     myGlobalObject.myMethod = (JavascriptMethodEventHandler)myMethod;
-    myGlobalObject.myAsyncMethod = (JavascriptMethodEventHandler)myMethod;
+    myGlobalObject.myAsyncMethod = (JavascriptAsynchMethodEventHandler)myMethod;
 }
 {% endhighlight %}
 {% highlight vbnet %}
@@ -169,8 +169,10 @@ If myGlobalObject Is Nothing Then
 End If
  
 Using myGlobalObject
-    myGlobalObject.myMethod = CType(AddressOf OnCustomJavascriptMethod, JavascriptMethodEventHandler)
-    myGlobalObject.myAsyncMethod = CType(AddressOf OnCustomJavascriptMethod, JavascriptMethodEventHandler)
+    myGlobalObject.myMethod = 
+        CType(AddressOf OnCustomJavascriptMethod, JavascriptMethodEventHandler)
+    myGlobalObject.myAsyncMethod = 
+        CType(AddressOf OnCustomJavascriptMethod, JavascriptAsynchMethodEventHandler)
 End Using
 {% endhighlight %}
 
@@ -206,8 +208,10 @@ If Not myGlobalObject Then
 End If
  
 Using myGlobalObject
-    myGlobalObject.myMethod = CType(AddressOf OnCustomJavascriptMethod, JavascriptMethodEventHandler)
-    myGlobalObject.myAsyncMethod = CType(AddressOf OnCustomJavascriptMethod, JavascriptMethodEventHandler)
+    myGlobalObject.myMethod = 
+        CType(AddressOf OnCustomJavascriptMethod, JavascriptMethodEventHandler)
+    myGlobalObject.myAsyncMethod = 
+        CType(AddressOf OnCustomJavascriptMethod, JSFunctionAsyncHandler)
 End Using
 {% endhighlight %}
 
