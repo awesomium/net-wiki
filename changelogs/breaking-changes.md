@@ -14,6 +14,8 @@ weight: 1
 
 ## Breaking Changes
 
+The following list of changes, require refactoring your code.
+
 ### 1. [`JSObject.Bind(...,JavascriptMethodEventHandler)`](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_Bind_4) is obsolete.
 
 The **obsolete** [`JSObject.Bind`](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_Bind_4) was used to create a custom JavaScript method and bind a managed handler to it. The same method was used to create both *synchronous* and *asynchronous* methods that were bound to a [`JavascriptMethodEventHandler`](http://docs.awesomium.net/?tc=T_Awesomium_Core_JavascriptMethodEventHandler).
@@ -440,4 +442,132 @@ End If
 #### Additional Resources:
 
 * [Introduction to JavaScript Integration](../javascript/introduction.html)
+
+
+## Important Changes
+
+The following list of changes do not require refactoring your code but your application will perform better and your code can be simplified if taken into consideration.
+
+### 1. The behavior and signature of the [`DocumentReady`](http://docs.awesomium.net/?tc=E_Awesomium_Core_IWebView_DocumentReady) event, has changed.
+
+* Until version 1.7.5, a [`UrlEventHandler`](http://docs.awesomium.net/1_7_4/?tc=T_Awesomium_Core_UrlEventHandler) method was used to handle a [`DocumentReady`](http://docs.awesomium.net/?tc=E_Awesomium_Core_IWebView_DocumentReady) event. **Starting with version 1.7.5, the new [`DocumentReadyEventHandler`](http://docs.awesomium.net/?tc=T_Awesomium_Core_DocumentReadyEventHandler) method is used to handle a [`DocumentReady`](http://docs.awesomium.net/?tc=E_Awesomium_Core_IWebView_DocumentReady) event**.
+
+  [`DocumentReadyEventHandler`](http://docs.awesomium.net/?tc=T_Awesomium_Core_DocumentReadyEventHandler) accepts a [`DocumentReadyEventArgs`](http://docs.awesomium.net/?tc=T_Awesomium_Core_DocumentReadyEventArgs) as event arguments that provide data for the event. `DocumentReadyEventArgs` still derives [`UrlEventArgs`](http://docs.awesomium.net/?tc=T_Awesomium_Core_UrlEventArgs) so old `UrlEventHandler` methods assigned as handlers of a `DocumentReady` event will keep on working but user code will not have access to many new features provided by the new event handler arguments.
+
+* Starting with version 1.7.5, the [`DocumentReady`](http://docs.awesomium.net/?tc=E_Awesomium_Core_IWebView_DocumentReady) event may be fired more than once when a web-page is being loaded (or edited through JavaScript). `DocumentReady` is fired every time the *[ready-state](https://developer.mozilla.org/en-US/docs/Web/API/document.readyState)* of the loaded page changes and the new [`DocumentReadyEventArgs`](http://docs.awesomium.net/?tc=T_Awesomium_Core_DocumentReadyEventArgs) passed to your [`DocumentReadyEventHandler`](http://docs.awesomium.net/?tc=T_Awesomium_Core_DocumentReadyEventHandler) method, contains a [`ReadyState`](http://docs.awesomium.net/?tc=P_Awesomium_Core_DocumentReadyEventArgs_ReadyState) property that informs you if the DOM is still being loaded or if it is completely loaded.
+
+  Until version 1.7.5, users used to handle the [`LoadingFrameComplete`](http://docs.awesomium.net/?tc=E_Awesomium_Core_IWebView_LoadingFrameComplete) waiting for [`IsMainFrame`](http://docs.awesomium.net/?tc=P_Awesomium_Core_FrameEventArgs_IsMainFrame) to be `true` before executing JavaScript that required access to the page's DOM. This was because as noted, `DocumentReady` was being fired too early (it was equivalent to [`DOMContentLoaded`](https://developer.mozilla.org/en-US/docs/Web/Events/DOMContentLoaded)). This technique is now not suggested and it is actually discouraged for the following reasons:
+
+  * `DocumentReady` is now fired more than once and it is guaranteed to fire when the DOM is completely loaded and ready ([`ReadyState`](http://docs.awesomium.net/?tc=P_Awesomium_Core_DocumentReadyEventArgs_ReadyState) will be [`Loaded`](http://docs.awesomium.net/?tc=T_Awesomium_Core_DocumentReadyState)).
+  * `LoadingFrameComplete` is not fired in a **[Javascript Execution Context (JEC)](../javascript/jec.html)** since it is not a Javascript-related event. Features available to methods executed in a JEC, are not available to a `LoadingFrameComplete` event handler.
+  * The *main frame* of a page (see: [`IsMainFrame`](http://docs.awesomium.net/?tc=P_Awesomium_Core_FrameEventArgs_IsMainFrame)) is usually the last to load when a page is being loaded but this is not guaranteed.
+  * A page that has all its HTML content loaded, doesn't necessarily have a completely loaded DOM. A view created with JavaScript *`window.open`* specifying no target URL, does not have a ready DOM until JavaScript code loads something into the new *`window`* or uses *`document.write`*, *`document.close`*.
+
+* Handlers of a [`DocumentReady`](http://docs.awesomium.net/?tc=E_Awesomium_Core_IWebView_DocumentReady) event are now executed in an *asynchronous* **[Javascript Execution Context (JEC)](../javascript/jec.html)**. This technology is new in version 1.7.5. Methods executed in a JEC, enjoy certain benefits such as:
+
+  * `JSObject` instances created or acquired in a JEC, do not need to be explicitly disposed. They are automatically exposed upon exiting the method associated with the JEC.
+  * Errors or exceptions that occur within a JEC, are silently handled and propagated to the [JavaScript console](http://docs.awesomium.net/?tc=E_Awesomium_Core_WebView_ConsoleMessage).
+  * Code executing in an *asynchronous* JEC, has immediate access to essential objects of the loaded page's current JavaScript environment (such as *`window`* and *`document`*) through the new [`Global`](http://docs.awesomium.net/?tc=T_Awesomium_Core_Global) class, without any need to perform additional synchronous calls to the child-process to acquire these objects. In particular, the [`DocumentReadyEventArgs.Environment`](http://docs.awesomium.net/?tc=P_Awesomium_Core_DocumentReadyEventArgs_Environment) property provides an instance of `Global` when [`DocumentReadyEventArgs.ReadyState`](http://docs.awesomium.net/?tc=P_Awesomium_Core_DocumentReadyEventArgs_ReadyState) is [`Loaded`](http://docs.awesomium.net/?tc=T_Awesomium_Core_DocumentReadyState).
+
+#### Refactoring:
+
+**It is strongly suggested that you revise your code taking advantage of the new features provided to the [`DocumentReady`](http://docs.awesomium.net/?tc=E_Awesomium_Core_IWebView_DocumentReady) event**. The following example shows how the `DocumentReady` can be handled:
+
+{% highlight csharp %}
+webView.DocumentReady += OnDocumentReady;
+
+[...]
+
+
+private void OnDocumentReady( Object sender, DocumentReadyEventArgs e )
+{
+    // If your code needs to access and manipulate the DOM,
+    // wait for it be fully loaded.
+    if ( e.ReadyState == DocumentReadyState.Ready )
+        return;
+
+    // DOM is fully loaded. Access essential objects
+    // through Global.
+    var global = e.Environment;
+
+    // Implicit casting to Boolean available.
+    if ( !global )
+        return;
+
+    // Create a local object whose own properties specify data 
+    // property descriptors to be added to a remote object, 
+    // with the corresponding property names and values.
+    var props = new JSObject();
+    // Specify the property name, the data property descriptor and initial value.
+    props[ "myProperty", new JSPropertyDescriptor() { Writable = false } ] = "Ready";
+
+    // Create a remote object using generics of the global Object and
+    // assign it to a global variable. Note that members of the Global
+    // class, are exposed as 'dynamic'.
+    global.window.myVar = global.Object.create( global.Object.prototype, props ); 
+
+    var myDiv = global.document.getElementById( "myDiv" );
+
+    if ( !myDiv )
+        return;
+
+    myDiv.innerHTML = "Loaded";
+
+    // Note that we do not not explcitly dispose any JSObject
+    // (by wrapping code in 'using' statements for example).
+    // All JSObjects created or acquired in a JEC, are
+    // automatically disposed upon exiting the method.
+}
+{% endhighlight %}
+{% highlight vbnet %}
+Option Explicit Off
+
+[...]
+
+AddHandler webView.DocumentReady, AddressOf OnDocumentReady
+
+[...]
+
+
+Private Sub OnDocumentReady(sender As Object, e As DocumentReadyEventArgs)
+    ' If your code needs to access and manipulate the DOM,
+    ' wait for it be fully loaded.
+    If e.ReadyState = DocumentReadyState.Ready Then Return
+
+    ' DOM is fully loaded. Access essential objects
+    ' through Global.
+    var js = e.Environment;
+
+    ' Implicit casting to Boolean available.
+    If Not CBool(global) Then Return
+
+    ' Create a local object whose own properties specify data 
+    ' property descriptors to be added to a remote object, 
+    ' with the corresponding property names and values.
+    Dim props As New JSObject()
+    ' Specify the property name, the data property descriptor and initial value.
+    props("myProperty", New JSPropertyDescriptor() With { .Writable = false }) = "Ready"
+
+    ' Create a remote object using generics of the global Object and
+    ' assign it to a global variable. Note that members of the Global
+    ' class, are exposed as 'dynamic'.
+    global.window.myVar = global.Object.create(global.Object.prototype, props)
+
+    Dim myDiv = global.document.getElementById("myDiv")
+
+    If Not myDiv Then Return
+
+    myDiv.innerHTML = "Loaded"
+
+    ' Note that we do not not explcitly dispose any JSObject
+    ' (by wrapping code in 'Using' statements for example).
+    ' All JSObjects created or acquired in a JEC, are
+    ' automatically disposed upon exiting the method.
+End Sub
+{% endhighlight %}
+
+#### Additional Resources:
+
+* [Introduction to JavaScript Integration](../javascript/introduction.html)
+* [Javascript Execution Context](../javascript/jec.html)
 
