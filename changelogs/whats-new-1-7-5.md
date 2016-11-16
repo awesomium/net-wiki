@@ -6,9 +6,9 @@ weight: 2
 
 ---
 
-We are happy to announce the release of **Awesomium.NET 1.7.5b**. This is a **beta** release with many new **_experimental_** features and enhancements.
+We are happy to announce the release of **Awesomium.NET 1.7.5.1**. This is a **stable**, critical release including many fixes, new **_experimental_** features and enhancements.
 
-* [Download the Awesomium 1.7.5b SDK](http://www.awesomium.com/download) (includes the **Awesomium.NET** binaries and samples)
+* [Download the Awesomium 1.7.5 SDK](http://www.awesomium.com/download) (includes the **Awesomium.NET** binaries and samples)
 * [Awesomium.NET 1.7.5 API Reference](http://docs.awesomium.net)
 * [Setting up on Windows](http://wiki.awesomium.net/getting-started/setting-up-on-windows.html)
 * [Setting up on Mac OS X](http://wiki.awesomium.net/getting-started/setting-up-on-mac-osx.html)
@@ -182,6 +182,10 @@ This way you can load only certain resources asynchronously while let the rest o
 * Added `WebSessionProvider` component.
 * Implemented Undo/Redo for Inspector changes.
 
+#### Mono
+
+* Added API to create Inspector Views.
+
 
 ## API Changes
 
@@ -255,12 +259,22 @@ This way you can load only certain resources asynchronously while let the rest o
 
 * [`Utilities.SetCulture`](http://docs.awesomium.net/?tc=M_Awesomium_Windows_Forms_Utilities_SetCulture)
 
+#### Awesomium.Mono (Mono/Xamarin)
+
+* [`IWebView.CreateInspectorView`]()
+* [`IWebView.GetInspectorView`]()
+* [`IWebView.GetInspectedView`]()
+* [`IWebView.IsInspectorView`]()
+* [`IWebView.HasInspectorView`]()
+* [`ShowCreatedWebViewEventArgs.IsInspectorView`]()
+
 #### JavaScript
 
 * [`OSMJIF`](http://docs.awesomium.net/?tc=T_global_OSMJIF)
 * [`OSMInfo`](http://docs.awesomium.net/?tc=T_global_OSMInfo)
 * [`OSMEventArgs`](http://docs.awesomium.net/?tc=T_global_OSMEventArgs)
 * [`OSMView`](http://docs.awesomium.net/?tc=T_global_OSMView)
+
 
 ### Modified API:
 
@@ -305,6 +319,13 @@ This way you can load only certain resources asynchronously while let the rest o
 * Fixed issue where `SurfaceFactory` would fail to destroy unused surfaces.
 * Fixed issue preventing navigation when only the anchor of a URL is changed. ([#52](https://github.com/awesomium/awesomium-pub/issues/52))
 
+##### [1.7.5.1]:
+
+* Fixed issue with `IsDocumentReady` being set to false when secondary frames are being edited or unloaded. ([#75](https://github.com/awesomium/awesomium-pub/issues/75))
+* Fixed issues with, and improved behavior of `CreateGlobalJavascriptObject`.
+* Fixed `Win32Exception` when building `PackagePath`. ([#73](https://github.com/awesomium/awesomium-pub/issues/73))
+* Added support for loading local PDF files through the *`file://`* protocol. ([#86](https://github.com/awesomium/awesomium-pub/issues/86))
+
 #### Awesomium.Windows.Controls (WPF)
 
 * Fixed `ArgumentException` at `RenderProcess` getter. ([#69](https://github.com/awesomium/awesomium-pub/issues/69))
@@ -312,6 +333,20 @@ This way you can load only certain resources asynchronously while let the rest o
 * Fixed error in `ISynchronizeInvoke.InvokeRequired` implementation.
 * Fixed issue with `DataPakSourceProvider.PakPath` validation.
 * Fixed issue that would prevent temporarily unloaded `WebControl` containers (such as those in a TabControl's tab), accessing the `WebDialogsLayer` decorator.
+
+##### [1.7.5.1]:
+
+* Fixed issue that caused windowed WebControls crash the app when being destroyed.
+* Fixed issue that prevented windowed WebControls from loading the initial (design-time) `Source`. ([#81](https://github.com/awesomium/awesomium-pub/issues/81))
+* Fixed issue that prevented user code from overriding the WPF "Sad Tab". ([#84](https://github.com/awesomium/awesomium-pub/issues/84))
+* Fixed issue that caused the Cut/Paste commands be always enabled in the WPF context menu. ([#85](https://github.com/awesomium/awesomium-pub/issues/85))
+
+#### Awesomium.Mono.Mac (MonoMac/Xamarin)
+
+* Fixed issue that prevented subclassing of `OSMApplication`. ([#77](https://github.com/awesomium/awesomium-pub/issues/77))
+* Fixed issue with exception thrown occasionally at `NSApplication.NextEvent`.
+* Fixed issue with locating PAK files of internal DataSources.
+* Fixed issue with creating on-disk WebSessions through an `OSMWebViewController`.
 
 
 ## Changes in Samples
@@ -325,6 +360,11 @@ This way you can load only certain resources asynchronously while let the rest o
 * Updated **_WPFJavascriptSample_** to reflect the new **[JEC](../javascript/jec.html)** features and new **[DLR](../javascript/dlr.html)** support features.
 * Expanded WPF **_StarterSample_** and **_VBStarterSample_** with examples of taking screenshot and interacting with the page.
 * Updated WPF **_StarterSample_** and **_VBStarterSample_** to reflect the new **[JEC](../javascript/jec.html)** features and new **[DLR](../javascript/dlr.html)** support features.
+
+##### [1.7.5.1]:
+
+* Updated WPF **_WebControlSample_** to demonstrate forcing use of SKIA for font rendering.
+* Added simple JavaScript interaction sample to **_TabbedMonoMacSample_**.
 
 
 ## Known Issues
