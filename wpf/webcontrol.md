@@ -11,36 +11,36 @@ weight: 1
 ### Index
 
 * [Introduction](#introduction)
-* [Creating a WebControl](#creating_a_webcontrol)
-  * [Create in XAML](#create_in_xaml)
-  * [Create at Runtime](#create_at_runtime)
+* [Creating a WebControl](#creating-a-webcontrol)
+  * [Create in XAML](#create-in-xaml)
+  * [Create at Runtime](#create-at-runtime)
 * [Initialization](#initialization)
   * [Summary](#summary)
-  * [WebCore Initialization](#webcore_initialization)
+  * [WebCore Initialization](#webcore-initialization)
   * [Example](#example)
-* [Loading Content](#loading_content)
-  * [Loading Content at Runtime](#loading_content_at_runtime)
-  * [Loading Resources](#loading_resources)
+* [Loading Content](#loading-content)
+  * [Loading Content at Runtime](#loading-content-at-runtime)
+  * [Loading Resources](#loading-resources)
 * [Rendering](#rendering)
   * [Presenters](#presenters)
   * [WebViewPresenter](#webviewpresenter)
-      * [Pixel Buffer](#pixel_buffer_1)
-      * [User Input](#user_input_1)
+      * [Pixel Buffer](#pixel-buffer-1)
+      * [User Input](#user-input-1)
   * [WebViewHost](#webviewhost)
-      * [Pixel Buffer](#pixel_buffer_2)
-      * [User Input](#user_input_2)
-  * [Hardware Acceleration](#hardware_acceleration)
-  * [Using WPF Presenters with a WebView](#using_wpf_presenters_with_a_webview)
-* [Offscreen vs Windowed in WPF](#offscreen_vs_windowed_in_wpf)
-* [UI Integration](#ui_integration)
-  * [Routed Commands](#routed_commands)
-  * [Predefined Controls](#predefined_controls)
+      * [Pixel Buffer](#pixel-buffer-2)
+      * [User Input](#user-input-2)
+  * [Hardware Acceleration](#hardware-acceleration)
+  * [Using WPF Presenters with a WebView](#using-wpf-presenters-with-a-webview)
+* [Offscreen vs Windowed in WPF](#offscreen-vs-windowed-in-wpf)
+* [UI Integration](#ui-integration)
+  * [Routed Commands](#routed-commands)
+  * [Predefined Controls](#predefined-controls)
   * [Utilities](#utilities)
 * [Customizations](#customizations)
-  * [Customizing the Context Menu](#customizing_the_context_menu)
-  * [Customizing Popup Menus](#customizing_popup_menus)
-  * [Customizing Dialogs](#customizing_dialogs)
-* [Additional Resources](#additional_resources)
+  * [Customizing the Context Menu](#customizing-the-context-menu)
+  * [Customizing Popup Menus](#customizing-popup-menus)
+  * [Customizing Dialogs](#customizing-dialogs)
+* [Additional Resources](#additional-resources)
 
 
 ### Introduction
@@ -54,7 +54,7 @@ The WPF `WebControl` is available through the **_Awesomium.Windows.Controls_** a
 
 When you install the [Awesomium SDK](http://www.awesomium.com/download/) ![][external], the WPF `WebControl` is automatically added to Visual Studio's Toolbox. You should be able to see it under the **Awesomium.NET** toolbox tab when a `Window` or `Control` is open in the WPF designer.
 
-> If you cannot find the `WebControl` or the *Awesomium.NET* tab in your toolbox, please read: [Visual Studio Toolbox](../getting-started/setting-up-on-windows.html#visual_studio_toolbox).
+> If you cannot find the `WebControl` or the *Awesomium.NET* tab in your toolbox, please read: [Visual Studio Toolbox](../getting-started/setting-up-on-windows.html#visual-studio-toolbox).
 
 All you have to do is **drag and drop the `WebControl` from the Toolbox to your container in the designer, or in XAML**. The appropriate references will automatically be added to your project.
 

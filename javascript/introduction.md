@@ -33,8 +33,8 @@ weight: 1
   * [Global Class](#global-class)
 * [Declaring Custom Method Callbacks](#declaring-custom-method-callbacks)
   * [Examples](#examples)
-      * [CLR Example](#clr_example)
-      * [DLR Example](#dlr_example)
+      * [CLR Example](#clr-example)
+      * [DLR Example](#dlr-example)
 * [Global JavaScript Objects](#global-javascript-objects)    
 * [Synchronous & Asynchronous API](#synchronous--asynchronous_api)
 * [Handling Errors](#handling-errors)
@@ -57,9 +57,9 @@ In addition, Awesomium.NET extends the available native Awesomium JavaScript bri
 
 ## Awesomium JavaScript Integration API
 
-Interaction between a managed hosting application and a web-page using JavaScript, can be initiated by either the hosting application using dedicated methods of [`IWebView`](http://docs.awesomium.net/?tc=T_Awesomium_Core_IWebView) and [`JSObject`](http://docs.awesomium.net/?tc=T_Awesomium_Core_JSObject) or by client-side code in a web-page using API of the [JavaScript Interoperation Framework (JIF)](jif.html) or by invoking [custom JavaScript methods](#declaring_custom_method_callbacks).
+Interaction between a managed hosting application and a web-page using JavaScript, can be initiated by either the hosting application using dedicated methods of [`IWebView`](http://docs.awesomium.net/?tc=T_Awesomium_Core_IWebView) and [`JSObject`](http://docs.awesomium.net/?tc=T_Awesomium_Core_JSObject) or by client-side code in a web-page using API of the [JavaScript Interoperation Framework (JIF)](jif.html) or by invoking [custom JavaScript methods](#declaring-custom-method-callbacks).
 
-Awesomium uses a multi-process architecture. Each [`IWebView`](http://docs.awesomium.net/?tc=T_Awesomium_Core_IWebView) instance is isolated and rendered in a separate process. V8 and client-side JavaScript, also execute in these separate (child) processes. Method calls to and from the web-page, are sent via a piped message. Such calls can be either *synchronous* or *asynchronous*. **For details, read the [Synchronous & Asynchronous API](#synchronous__asynchronous_api) section below**.
+Awesomium uses a multi-process architecture. Each [`IWebView`](http://docs.awesomium.net/?tc=T_Awesomium_Core_IWebView) instance is isolated and rendered in a separate process. V8 and client-side JavaScript, also execute in these separate (child) processes. Method calls to and from the web-page, are sent via a piped message. Such calls can be either *synchronous* or *asynchronous*. **For details, read the [Synchronous & Asynchronous API](#synchronous--asynchronous-api) section below**.
 
 ### Predefined Bindings
 
@@ -73,7 +73,7 @@ Awesomium.NET provides predefined bindings to several standard DOM `window` and 
 
     * [Javascript Execution Context (JEC)](jec.html)
     * [Initialization Sequence](../general-use/initialization-sequence.html)
-    * [Synchronous & Asynchronous API](#synchronous__asynchronous_api)
+    * [Synchronous & Asynchronous API](#synchronous--asynchronous_api)
 * [`ShowJavascriptDialog`](http://docs.awesomium.net/?tc=E_Awesomium_Core_IWebView_ShowJavascriptDialog)
 
     Fired **synchronously** in response to **_`window.alert`_**, **_`window.confirm`_** and **_`window.prompt`_**. Technology specific WebControls show predefined dialogs for these calls but you can handle the event and either cancel it or modally display your own dialog or silently provide a response, where one is expected.
@@ -116,7 +116,7 @@ You can evaluate and execute JavaScript code against the currently loaded web-pa
 
 JavaScript values passed to the managed hosting application, are always encapsulated by a **[`JSValue`](http://docs.awesomium.net/?tc=T_Awesomium_Core_JSValue)** instance. Similarly, values passed to the client-side from the application, are converted to a **`JSValue`** before they are sent to the web-page.
 
-> Starting with **v1.7.5**, `JSValue` has been remodelled as a `class` (it is no longer a `struct`) although it remains immutable from the application's point of view. For details, read: [Important Changes in v1.7.5]()
+> Starting with **v1.7.5**, `JSValue` has been remodelled as a `class` (it is no longer a `struct`) although it remains immutable from the application's point of view. For details, read: [Important Changes in v1.7.5](http://wiki.awesomium.net/changelogs/breaking-changes)
 
 The [`JSValue`](http://docs.awesomium.net/?tc=T_Awesomium_Core_JSValue) class is used as an intermediary to translate JavaScript types into their managed equivalent and vice-versa. To get a better understanding of how this relationship works, here’s how types are mapped between JavaScript and .NET using `JSValue`:
 
@@ -266,16 +266,17 @@ If Not CBool(myObject) Then Return
 
 There are two types of JSObjects, **Local** and **Remote**.
 
-**For details, see the [JSObject Class](#jsobject_class) section below**.
+**For details, see the [JSObject Class](#jsobject-class) section below**.
 
 #### Function
 
-JavaScript functions are **[Remote](#remote_jsobjects)** JSObjects that live within the V8 engine in the child process and are modeled in .NET with the [`JSFunction`](http://docs.awesomium.net/?tc=T_Awesomium_Core_JSFunction) class. JavaScript `Function` objects that are passed to the hosting application, are automatically wrapped by a `JSFunction` (that is a `JSObject` subclass).
+JavaScript functions are **[Remote](#remote-jsobjects)** JSObjects that live within the V8 engine in the child process and are modeled in .NET with the [`JSFunction`](http://docs.awesomium.net/?tc=T_Awesomium_Core_JSFunction) class. JavaScript `Function` objects that are passed to the hosting application, are automatically wrapped by a `JSFunction` (that is a `JSObject` subclass).
 
 A `JSValue` that encapsulates a JavaScript `Function`, has both [`JSValue.IsObject`](http://docs.awesomium.net/?tc=P_Awesomium_Core_JSValue_IsObject) and [`JSValue.IsFunctionObject`](http://docs.awesomium.net/?tc=P_Awesomium_Core_JSValue_IsFunctionObject) set to `true` and can be implicitly casted to `JSFunction`. Converting a `JSValue` to `JSFunction` succeeds even if the `JSValue` does not represent a JavaScript `Function`. In this case a special invalid (undefined) `JSFunction` is returned ([`JSObject.Type`](http://docs.awesomium.net/?tc=P_Awesomium_Core_JSObject_Type) is [`JSObjectType.Invalid`](http://docs.awesomium.net/?tc=T_Awesomium_Core_JSObjectType)) that when checked against `null` will return `true` and when converted to `Boolean` will be converted to `false`.
 
 {% highlight csharp %}
-JSObject element = webView.ExecuteJavascriptWithResult( "document.getElementById('link_a')" );
+JSObject element = webView.ExecuteJavascriptWithResult( 
+    "document.getElementById('link_a')" );
 
 if ( !element )
     return;
@@ -294,7 +295,8 @@ if ( myFunction.Call( element ) )
 }
 {% endhighlight %}
 {% highlight vbnet %}
-Dim element As JSObject = webView.ExecuteJavascriptWithResult("document.getElementById('link_a')")
+Dim element As JSObject = webView.ExecuteJavascriptWithResult(
+    "document.getElementById('link_a')")
 
 If Not CBool(element) Then Return
 
@@ -314,7 +316,7 @@ End If
 
 **For details, read**: 
 
-* [JSObject Class](#jsobject_class)
+* [JSObject Class](#jsobject-class)
 * [Creating Custom JavaScript Methods](custom-javascript-methods.html)
 
 #### Null & Undefined
@@ -329,7 +331,7 @@ Attempting to acquire the value of a JavaScript object's member that does not ex
 
 **Both `JSValue.Null` and `JSValue.Undefined` are implicitly convertible to a managed `false` `Boolean` value**.
 
-> Errors that may occur during the execution of a synchronous JavaScript call, are usually silently handled and either reported to the JavaScript console (see [`IWebView.ConsoleMessage`](http://docs.awesomium.net/?tc=E_Awesomium_Core_IWebView_ConsoleMessage)) or reported through [`JSObject.GetLastError`](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_GetLastError) or [`IWebView.GetLastError`](http://docs.awesomium.net/?tc=M_Awesomium_Core_IWebView_GetLastError). In these cases, the synchronous method calls that failed also return `JSValue.Undefined`. **For details, see the [Handling Errors](#handling_errors) section below**.
+> Errors that may occur during the execution of a synchronous JavaScript call, are usually silently handled and either reported to the JavaScript console (see [`IWebView.ConsoleMessage`](http://docs.awesomium.net/?tc=E_Awesomium_Core_IWebView_ConsoleMessage)) or reported through [`JSObject.GetLastError`](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_GetLastError) or [`IWebView.GetLastError`](http://docs.awesomium.net/?tc=M_Awesomium_Core_IWebView_GetLastError). In these cases, the synchronous method calls that failed also return `JSValue.Undefined`. **For details, see the [Handling Errors](#handling-errors) section below**.
 
 {% highlight csharp %}
 JSValue someVar = webView.ExecuteJavascriptWithResult( "someVar" );
@@ -520,16 +522,16 @@ Remote JSObjects are reference-counted and collected by the V8 garbage collector
 
 You can think of remote JSObjects as a pointer to a V8 object on the page. Every time you make a copy of a `JSObject` (via [`Clone`](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_Clone)), only the reference ([remote ID](http://docs.awesomium.net/?tc=P_Awesomium_Core_JSObject_RemoteId)) is copied; a deep copy is not made.
 
-When the V8 object goes away (usually due to a page navigation), the reference will no longer be valid and method calls may fail. If you need a remote object to be available to all pages and persistent in V8 throughout the lifetime of the view, you should create a [Global JavaScript Object](#global_javascript_objects).
+When the V8 object goes away (usually due to a page navigation), the reference will no longer be valid and method calls may fail. If you need a remote object to be available to all pages and persistent in V8 throughout the lifetime of the view, you should create a [Global JavaScript Object](#global-javascript-objects).
 
 Local JSObjects are not associated with any web-view and web-page. You can think of them as an immutable dictionary of data that can be passed to multiple web-pages of different views by value. However local JSObjects should still be disposed and those created within a [Javascript Execution Context (JEC)](jec.html) are also automatically disposed upon exiting the routine associated with the execution context.
 
-Just like remote JSObjects, When you make a copy of a local object (via [`Clone`](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_Clone)), only the reference to the internal dictionary of properties is copied and a deep copy is not made. Changes to the clone will affect the original and vice versa, until the object is passed to a remote web-page (see [Local Objects](#local_objects)).
+Just like remote JSObjects, When you make a copy of a local object (via [`Clone`](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_Clone)), only the reference to the internal dictionary of properties is copied and a deep copy is not made. Changes to the clone will affect the original and vice versa, until the object is passed to a remote web-page (see [Local Objects](#local-objects)).
 
 **For more details and examples concerning the lifetime of JSObjects read**: 
 
 * [Javascript Execution Context (JEC)](jec.html)
-* [Handling Errors](#handling_errors)
+* [Handling Errors](#handling-errors)
 * [Using Local JSObjects](local-jsobjects.html)
 
 #### Dynamic Language Runtime
@@ -604,13 +606,17 @@ private void OnDocumentReady( object sender, DocumentReadyEventArgs e )
     // We want it to be an accessor descriptor.
 	// We create a synchronous anonymous remote 
 	// Function and bind it to a managed handler.
-	propConf.get = new JSFunction( webControl, (JavascriptMethodHandler)onReadOnlyGet );
+	propConf.get = new JSFunction( webControl, 
+        (JavascriptMethodHandler)onReadOnlyGet );
 	propConf.enumerable = true;
 
     // Define a read-only property to the prototype of Node,
 	// the base class of all DOM elements. Accessing the property
 	// will call our 'onReadyOnlyGet' handler.
-	global.Object.defineProperty( global.window.Node.prototype, "myReadOnlyProperty", propConf );
+	global.Object.defineProperty( 
+        global.window.Node.prototype, 
+        "myReadOnlyProperty", 
+        propConf );
 }
 
 private JSValue onReadOnlyGet( object sender, JavascriptMethodEventArgs e )
@@ -658,7 +664,7 @@ End Function
 
 Another nifty feature of Awesomium's JavaScript Integration, is that you can declare custom JavaScript methods that when they are invoked from JavaScript, they call a managed handler to the hosting application.
 
-Just like [JavaScript-related events](#predefined_bindings), such methods can also be declared as *synchronous* or *asynchronous* (for details, read about [Synchronous & Asynchronous API](sync_async_js_api.html)).
+Just like [JavaScript-related events](#predefined-bindings), such methods can also be declared as *synchronous* or *asynchronous* (for details, read about [Synchronous & Asynchronous API](sync-async-js-api.html)).
 
 You can declare custom JavaScript methods using both the regural CLR API of `JSObject` (see [`JSObject.Bind`](http://docs.awesomium.net/?tc=Overload_Awesomium_Core_JSObject_Bind) and [`JSObject.BindAsync`](http://docs.awesomium.net/?tc=Overload_Awesomium_Core_JSObject_BindAsync)), or the [Dynamic Language Runtime (DLR)](dlr.html).
 
@@ -701,7 +707,8 @@ private void OnDocumentReady( object sender, DocumentReadyEventArgs e )
 
     // We will add custom methods to the prototype of Node,
     // the base class of all DOM elements.
-    JSObject nodePrototype = webView.ExecuteJavascriptWithResult( "Node.prototype" );
+    JSObject nodePrototype = webView.ExecuteJavascriptWithResult( 
+        "Node.prototype" );
 
     if ( !nodePrototype )
         return;
@@ -892,7 +899,7 @@ Sometimes you need objects to persist between pages (such as when exposing Appli
 
 Method calls to and from the web-page, are sent via a piped message to and from the child process. Such calls can be either *synchronous* or *asynchronous*.
 
-Most managed handlers of [JavaScript-related events](#predefined_bindings) and of custom JavaScript methods (see [Declaring Custom Method Callbacks](#declaring_custom_method_callbacks)), are called in a **[Javascript Execution Context (JEC)](jec.html)**. Depending on how the handler is called, synchronously or asynchronously, a *synchronous* or *asynchronous* JEC is created.
+Most managed handlers of [JavaScript-related events](#predefined-bindings) and of custom JavaScript methods (see [Declaring Custom Method Callbacks](#declaring-custom-method-callbacks)), are called in a **[Javascript Execution Context (JEC)](jec.html)**. Depending on how the handler is called, synchronously or asynchronously, a *synchronous* or *asynchronous* JEC is created.
 
 For details, exammples as well as a list of benefits and limitations of both *synchronous* and *asynchronous* calls, read:
 
@@ -978,12 +985,12 @@ End Sub
 
 ### Binding Errors
 
-When using [dynamic coding](#dynamic_language_runtime) and Awesomium.NET's support of the **[DLR](http://msdn.microsoft.com/en-us/library/dd233052.aspx)**, binding errors can occur in several cases as described below:
+When using [dynamic coding](#dynamic-language-runtime) and Awesomium.NET's support of the **[DLR](http://msdn.microsoft.com/en-us/library/dd233052.aspx)**, binding errors can occur in several cases as described below:
 
-* The owning view of a [remote `JSObject`](#local_jsobjects) has crashed or is no longer *alive* (see: [`IsLive`](http://docs.awesomium.net/?tc=P_Awesomium_Core_IWebView_IsLive)).
-* When a synchronous call fails because of a [native error](#native_errors).
+* The owning view of a [remote `JSObject`](#local-jsobjects) has crashed or is no longer *alive* (see: [`IsLive`](http://docs.awesomium.net/?tc=P_Awesomium_Core_IWebView_IsLive)).
+* When a synchronous call fails because of a [native error](#native-errors).
 * When a remote [`JSObject`](http://docs.awesomium.net/?tc=T_Awesomium_Core_JSObject) is no longer alive (it is disconnected, disposed or deleted on the client-side).
-* When an illegal action is performed on an object (like attempting to invoke a method on a [local `JSObject`](#local_jsobjects)).
+* When an illegal action is performed on an object (like attempting to invoke a method on a [local `JSObject`](#local-jsobjects)).
 * When attempting to invoke a remote object's method that doesn't exist (only if our [Javascript Interoperation Framework (JIF)](#jif) has failed to load).
 * When attempting to directly invoke an object that does not represent a JavaScript `function`.
 
@@ -1107,4 +1114,10 @@ myObject.myMethod()
 ## Additional Resources
 
 For more details and examples about Javascript Integration in Awesomium.NET, read the following articles:
+
+* [Synchronous & Asynchronous API](sync_async_js_api.html)
+* [JavaScript Interoperation Framework (JIF)](jif.html)
+* [Javascript Execution Context (JEC)](jec.html)
+* [How to: Create Custom JavaScript Methods](custom-javascript-methods.html)
+* [How to: Create a Custom JSObject](custom-jsobjects.html)
 
