@@ -8,7 +8,7 @@ weight: 2
 
 [external]: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVklEQVR4Xn3PgQkAMQhDUXfqTu7kTtkpd5RA8AInfArtQ2iRXFWT2QedAfttj2FsPIOE1eCOlEuoWWjgzYaB/IkeGOrxXhqB+uA9Bfcm0lAZuh+YIeAD+cAqSz4kCMUAAAAASUVORK5CYII=
 
-<p class="intro">This article provides details about *synchronous* and *asynchronous* communication between JavaScript and the hosting managed application.</p>
+<p class="intro">This article provides details about <i>synchronous</i> and <i>asynchronous</i> communication between JavaScript and the hosting managed application.</p>
 
 > Before you go through this article, please read an **[Introduction to JavaScript Integration in Awesomium](introduction.html)**.
 
@@ -26,7 +26,6 @@ Benefits and limitations of both contexts, are presented below:
 
 Method calls that return a value are called synchronously which means that the child process is blocked until a value is returned to the initial caller, either this is the hosting application or client-side JavaScript. 
 
-<a name="pros_sync"></a>
 #### Benefits
 
 The **benefit** of synchronous calls, is the ability to synchronously return a response to the caller:
@@ -86,7 +85,6 @@ if (userDiv) {
 }
 {% endhighlight %}
 
-<a name="cons_sync"></a>
 #### Limitations
 
 The major limitation of synchronous calls is that **you cannot make synchronous invocations from inside a synchronous JavaScript method/event handler, as this would cause a deadlock**:
@@ -122,8 +120,10 @@ AddHandler webView.JavascriptRequest, AddressOf webView_JavascriptRequest
 
 ' JavascriptRequest is called synchronously in response to OSMJIF.minimize, 
 ' OSMJIF.maximize, OSMJIF.restore and OSMJIF.exit.
-Private Sub webView_JavascriptRequest(sender As Object, e As JavascriptRequestEventArgs)
-    Dim readyState As String = webView.ExecuteJavascriptWithResult("document.readyState")
+Private Sub webView_JavascriptRequest(sender As Object, 
+                                      e As JavascriptRequestEventArgs)
+    Dim readyState As String = webView.ExecuteJavascriptWithResult(
+        "document.readyState")
     ' Throws an InvalidOperationException! You cannot make synchronous invocations 
     ' from inside a synchronous JavaScript event handler.
 End Sub
@@ -370,7 +370,9 @@ End Sub
 ' Called asynchronously in response to |OSMJIF.sendMessageAsync|.
 ' The result provided is passed to the |processImages| callback
 ' that is also called asynchronously. 
-Private Sub OnJavascriptMessage(sender As Object, e As JavascriptMessageEventArgs) Handles webView.JavascriptMessage
+Private Sub OnJavascriptMessage(sender As Object, e As JavascriptMessageEventArgs)
+    Handles webView.JavascriptMessage
+
     If (e.Message <> "images") OrElse Not e.Arguments(0).IsArray Then Return
 
     Dim sources As JSValue() = CType(e.Arguments(0), JSValue())
@@ -392,7 +394,6 @@ Asynchronous method calls are executed in the next update pass of the `WebCore`;
 
 Handlers of asynchronous [custom JavaScript methods](introduction.html#declaring_custom_method_callbacks) return no value (return `void` in C#) while JavaScript code in the web-page that invokes asynchronous methods will always receive *`undefined`* and code execution will resume immediately.
 
-<a name="pros_async"></a>
 #### Benefits
 
 Methods that are called asynchronously do not have any of the [limitations of synchronous method calls](#cons_sync). What's more, since asynchronous methods are called in an *asynchronous* [Javascript Execution Context](jec.html), user code can access and use essential objects of the loaded web-page's current JavaScript environment through [`Global`](introduction.html#global_class).
@@ -499,7 +500,6 @@ if (userDiv) {
 }
 {% endhighlight %}
 
-<a name="cons_async"></a>
 #### Limitations
 
 Any limitations with asynchronous calls, originate from the very fact that the calls are made asynchronously. If you combine synchronous and asynchronous calls, your code may have to be redesigned to either use a **_callback model_** or force a synchronous call whenever necessary.
