@@ -26,12 +26,12 @@ Starting with **Awesomium.NET v1.7.4**, we have designed and applied a new, awes
 
 If you are not using a technology-specific `WebControl`, or if you are developing an application without UI, you can now create a dedicated thread for Awesomium, start the `WebCore` from this thread and then interact with it cross-thread.
 
-In a non-UI environment where no valid `SynchronizationContext` or synchronization model is available by .NET/Mono, Awesomium will create and install its own synchronization context and start an update loop on the thread, that will block the thread until the `WebCore` is shut down (see: [`WebCore.Shutdown`]()).
+In a non-UI environment where no valid `SynchronizationContext` or synchronization model is available by .NET/Mono, Awesomium will create and install its own synchronization context and start an update loop on the thread, that will block the thread until the `WebCore` is shut down (see: [`WebCore.Shutdown`](http://docs.awesomium.net/?tc=M_Awesomium_Core_WebCore_Shutdown)).
 
 > This means that even on non-UI threads, Awesomium.NET now provides *auto-update* and users should no longer manually call `Update`, a method already marked as obsolete.
 
 
-**For more details, read the documentation of [`WebCore.Run`]()**.
+**For more details, read the documentation of [`WebCore.Run`](http://docs.awesomium.net/?tc=M_Awesomium_Core_WebCore_Run)**.
 
 The following samples available with the Awesomium and Awesomium .NET SDK, demonstrate starting the WebCore in a non-UI thread and interacting with it: cross-thread:
 
