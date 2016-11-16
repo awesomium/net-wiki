@@ -161,7 +161,8 @@ int windowInt = (int)webView.ExecuteJavascriptWithResult( "window" );
 Dim windowStr As JSObject = webView.ExecuteJavascriptWithResult("window")
 ' The conversion succeeds and the value of windowStr is "[object DOMWindow]".
 
-Dim windowInt As Integer = CType(webView.ExecuteJavascriptWithResult("window"), Int32)
+Dim windowInt As Integer = CType(webView.ExecuteJavascriptWithResult("window"),
+    Int32)
 ' Throws an InvalidCastException.
 {% endhighlight %}
 
@@ -652,10 +653,14 @@ Private Sub OnDocumentReady(sender As Object, e As DocumentReadyEventArgs)
 	' Define a read-only property to the prototype of Node,
 	' the base class of all DOM elements. Accessing the property
 	' will call our 'onReadyOnlyGet' handler.
-	js.Object.defineProperty(js.window.Node.prototype, "myReadOnlyProperty", propConf)
+	js.Object.defineProperty(
+        js.window.Node.prototype, 
+        "myReadOnlyProperty",
+        propConf)
 End Sub
 
-Private Function onReadyOnlyGet(sender As Object, e As JavascriptMethodEventArgs) As JSValue
+Private Function onReadyOnlyGet(sender As Object,
+                                e As JavascriptMethodEventArgs) As JSValue
 	Return CType(sender, IWebView).CreationTime
 End Function
 {% endhighlight %}
@@ -750,20 +755,25 @@ Private Sub OnDocumentReady(sender As Object, e As DocumentReadyEventArgs)
 
     ' We will add custom methods to the prototype of Node,
     ' the base class of all DOM elements.
-	Dim nodePrototype As JSObject = webView.ExecuteJavascriptWithResult("Node.prototype")
+	Dim nodePrototype As JSObject = webView.ExecuteJavascriptWithResult(
+        "Node.prototype")
 
     If Not CBool(nodePrototype) Then Return
 
-	nodePrototype.Bind("onMouseOverHandler", AddressOf OnMouseOverHandler)
-    nodePrototype.BindAsync("onMouseOverAsyncHandler", AddressOf OnMouseOverAsyncHandler)
+    nodePrototype.Bind("onMouseOverHandler",
+        AddressOf OnMouseOverHandler)
+    nodePrototype.BindAsync("onMouseOverAsyncHandler",
+        AddressOf OnMouseOverAsyncHandler)
 End Sub
 
-Private Function OnMouseOverHandler(sender As Object, e As JavascriptMethodEventArgs) As JSValue
+Private Function OnMouseOverHandler(sender As Object,
+                                    e As JavascriptMethodEventArgs) As JSValue
     ' Attempt to cancel bubbling.
 	Return False
 End Function
 
-Private Sub OnMouseOverAsyncHandler(sender As Object, e As JavascriptMethodEventArgs)
+Private Sub OnMouseOverAsyncHandler(sender As Object,
+                                    e As JavascriptMethodEventArgs)
 	If e.Arguments.Length < 1 Then Return
 
     Dim mouseEvent As JSObject = e.Arguments(0)
@@ -865,12 +875,14 @@ Private Sub OnDocumentReady(sender As Object, e As DocumentReadyEventArgs)
         CType(AddressOf OnMouseOverAsyncHandler, JavascriptAsyncMethodHandler)
 End Sub
 
-Private Function OnMouseOverHandler(sender As Object, e As JavascriptMethodEventArgs) As JSValue
+Private Function OnMouseOverHandler(sender As Object,
+                                    e As JavascriptMethodEventArgs) As JSValue
     ' Attempt to cancel bubbling.
 	Return False
 End Function
 
-Private Sub OnMouseOverAsyncHandler(sender As Object, e As JavascriptMethodEventArgs)
+Private Sub OnMouseOverAsyncHandler(sender As Object,
+                                    e As JavascriptMethodEventArgs)
 	If e.Arguments.Length < 1 Then Return
 
     Dim mouseEvent As Object = CType(e.Arguments(0), JSObject)
@@ -1097,7 +1109,8 @@ myLocalObject.Bind( "myMethod", (JavascriptMethodHandler)onMyMethod );
 myLocalObject[ "myProperty" ] = 5;
 {% endhighlight %}
 {% highlight vbnet %}
-Dim myObject As Object = CType(webControl.ExecuteJavascriptWithResult("myObject"), JSObject)
+Dim myObject As Object = CType(webControl.ExecuteJavascriptWithResult("myObject"),
+    JSObject)
 
 If Not myObject Then
     Return
