@@ -60,11 +60,11 @@
         
         function toggleDotNetLanguage(checkboxChecked) {
             if (checkboxChecked === true) {
-                $( ".language-csharp" ).parent().closest("div").hide();
-                $( ".language-vbnet" ).parent().closest("div").show();
+                $( ".language-csharp" ).parent().closest("figure").hide();
+                $( ".language-vbnet" ).parent().closest("figure").show();
             } else {
-                $( ".language-vbnet" ).parent().closest("div").hide();
-                $( ".language-csharp" ).parent().closest("div").show();
+                $( ".language-vbnet" ).parent().closest("figure").hide();
+                $( ".language-csharp" ).parent().closest("figure").show();
             }
         }
         </script>

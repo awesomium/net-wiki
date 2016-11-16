@@ -157,7 +157,7 @@ String windowStr = webView.ExecuteJavascriptWithResult( "window" );
 int windowInt = (int)webView.ExecuteJavascriptWithResult( "window" );
 // Throws an InvalidCastException.
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 Dim windowStr As JSObject = webView.ExecuteJavascriptWithResult("window")
 ' The conversion succeeds and the value of windowStr is "[object DOMWindow]".
 
@@ -173,7 +173,7 @@ JSValue windowInt = webView.ExecuteJavascriptWithResult( "window" );
 if ( !windowInt.IsNumber )
     return;
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 Dim windowInt As JSValue = webView.ExecuteJavascriptWithResult("window")
 
 If Not windowInt.IsNumber Then
@@ -255,7 +255,7 @@ JSObject myObject = webView.ExecuteJavascriptWithResult( "42" );
 if ( !myObject )
     return;
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 ' ExecuteJavascriptWithResult returns a JSValue which in this
 ' case it will represent the returned number but casting to
 ' JSObject will still succeed, returning an invalid JSObject.
@@ -293,7 +293,7 @@ if ( myFunction.Call( element ) )
     element.InvokeAsync( "click" );
 }
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 Dim element As JSObject = webView.ExecuteJavascriptWithResult("document.getElementById('link_a')")
 
 If Not CBool(element) Then Return
@@ -334,7 +334,7 @@ Attempting to acquire the value of a JavaScript object's member that does not ex
 {% highlight csharp %}
 JSValue someVar = webView.ExecuteJavascriptWithResult( "someVar" );
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 Dim someVar As JSValue = webView.ExecuteJavascriptWithResult("someVar")
 {% endhighlight %}
 
@@ -352,7 +352,7 @@ if ( someVar.IsUndefined )
     }
 }
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 If someVar.IsUndefined Then
     ' The call returned JSValue.Undefined but this does not
     ' necessarily mean that 'someVar' is 'undefined'. The
@@ -375,7 +375,7 @@ if ( !someVar )
     // then you should use JSValue.IsUndefined.
 }
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 If Not CBool(someVar) Then
     ' 'someVar' is not a valid usable value or object but this 
     ' does not necessarily mean that 'someVar' is 'undefined'.
@@ -406,7 +406,7 @@ JSObject myObject = new JSObject();
 myObject[ "name" ] = "Bob";
 myObject[ "age" ] = 42;
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 Dim myObject As JSObject = New JSObject()
 myObject("name") = "Bob"
 myObject("age") = 42
@@ -445,7 +445,7 @@ String name = person[ "name" ];
 int age = (int)person[ "age" ];
 // Value of age is '22'
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 Dim person As JSObject = webView.ExecuteJavascriptWithResult("Person")
 
 If Not CBool(person) Then Return
@@ -494,7 +494,7 @@ if ( !chatElement )
 // Asynchronously post the message.
 window.InvokeAsync( "addChatMessage", chatElement, "Bob", "Hello world!" );
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 ' Retrieve the global 'window' object from the page.
 Dim window As JSObject = webView.ExecuteJavascriptWithResult("window")
   
@@ -551,7 +551,7 @@ if ( !link )
 
 link.click();
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 Option Explicit Off
 
 [...]
@@ -618,7 +618,7 @@ private JSValue onReadOnlyGet( object sender, JavascriptMethodEventArgs e )
 	return ( (IWebView)sender ).CreationTime.ToString();
 }
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 Option Explicit Off
 
 [...]
@@ -731,7 +731,7 @@ private void OnMouseOverAsyncHandler( object sender, JavascriptMethodEventArgs e
 	Console.WriteLine( message );
 }
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 Option Explicit Off
 
 [...]
@@ -825,7 +825,7 @@ private void OnMouseOverAsyncHandler( object sender, JavascriptMethodEventArgs e
 	Console.WriteLine( message );
 }
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 Option Explicit Off
 
 [...]
@@ -922,7 +922,7 @@ if ( !myObject && ( webView.GetLastError() != Error.None ) ) {
   // Handle error here (if any).
 }
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 Dim myObject As JSObject = webView.ExecuteJavascriptWithResult("myObject")
 If (Not myObject) AndAlso (webView.GetLastError() <> Error.None) Then
   ' Handle error here (if any).
@@ -937,7 +937,7 @@ if ( foobar.IsUndefined && ( myObject.GetLastError() != Error.None ) ) {
   // Handle error here (if any).
 }
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 Dim foobar As JSValue = myObject("foobar")
 If foobar.IsUndefined AndAlso (myObject.GetLastError() <> Error.None) Then
   ' Handle error here (if any).
@@ -963,7 +963,7 @@ private void OnConsoleMessage( object sender, ConsoleMessageEventArgs e )
        String.Format( "[Line: {0}] {1}", e.LineNumber, e.Message ) );
 }
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 AddHandler webView.ConsoleMessage, AddressOf OnConsoleMessage
 
 [...]
@@ -1020,7 +1020,7 @@ catch ( Exception ex )
     }
 }
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 Option Explicit Off
 
 [...]
@@ -1089,7 +1089,7 @@ myLocalObject.Bind( "myMethod", (JavascriptMethodHandler)onMyMethod );
 // This will not be executed. The exception above has exited the JEC routine.
 myLocalObject[ "myProperty" ] = 5;
 {% endhighlight %}
-{% highlight vbnet %}
+{% highlight vb.net %}
 Dim myObject As Object = CType(webControl.ExecuteJavascriptWithResult("myObject"), JSObject)
 
 If Not myObject Then
