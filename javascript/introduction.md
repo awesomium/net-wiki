@@ -12,37 +12,37 @@ weight: 1
 
 ### Index
 
-* [The V8 JavaScript Engine](#the_v8_javascript_engine)
-* [Awesomium JavaScript Integration API](#awesomium_javascript_integration_api)
-  * [Predefined Bindings](#predefined_bindings)
-  * [JavaScript Evaluation](#javascript_evaluation)
-  * [JSValue Class](#jsvalue_class)
-      * [Conversion Details](#conversion_details)
+* [The V8 JavaScript Engine](#the-v8-javascript-engine)
+* [Awesomium JavaScript Integration API](#awesomium-javascript-integration-api)
+  * [Predefined Bindings](#predefined-bindings)
+  * [JavaScript Evaluation](#javascript-evaluation)
+  * [JSValue Class](#jsvalue-class)
+      * [Conversion Details](#conversion-details)
       * [String](#string)
       * [Boolean](#boolean)
       * [Array](#array)
       * [Object](#object)
       * [Function](#function)
-      * [Null & Undefined](#null__undefined)
-  * [JSObject Class](#jsobject_class)
-      * [Local JSObjects](#local_jsobjects)
-      * [Remote JSObjects](#remote_jsobjects)
-      * [Calling JavaScript Functions](#calling_javascript_functions)
-      * [Lifetime of Objects](#lifetime_of_objects)
-      * [Dynamic Language Runtime](#dynamic_language_runtime)
-  * [Global Class](#global_class)
-* [Declaring Custom Method Callbacks](#declaring_custom_method_callbacks)
+      * [Null & Undefined](#null--undefined)
+  * [JSObject Class](#jsobject-class)
+      * [Local JSObjects](#local-jsobjects)
+      * [Remote JSObjects](#remote-jsobjects)
+      * [Calling JavaScript Functions](#calling-javascript-functions)
+      * [Lifetime of Objects](#lifetime-of-objects)
+      * [Dynamic Language Runtime](#dynamic-language-runtime)
+  * [Global Class](#global-class)
+* [Declaring Custom Method Callbacks](#declaring-custom-method-callbacks)
   * [Examples](#examples)
       * [CLR Example](#clr_example)
       * [DLR Example](#dlr_example)
-* [Global JavaScript Objects](#global_javascript_objects)    
-* [Synchronous & Asynchronous API](#synchronous__asynchronous_api)
-* [Handling Errors](#handling_errors)
-  * [Native Errors](#native_errors)
-  * [JavaScript Errors](#javascript_errors)
-  * [Binding Errors](#binding_errors)
-  * [Javascript Execution Context](#javascript_execution_context)
-* [Additional Resources](#additional_resources)
+* [Global JavaScript Objects](#global-javascript-objects)    
+* [Synchronous & Asynchronous API](#synchronous--asynchronous_api)
+* [Handling Errors](#handling-errors)
+  * [Native Errors](#native-errors)
+  * [JavaScript Errors](#javascript-errors)
+  * [Binding Errors](#binding-errors)
+  * [Javascript Execution Context](#javascript-execution-context)
+* [Additional Resources](#additional-resources)
 
 
 ## The V8 JavaScript Engine
@@ -157,7 +157,7 @@ String windowStr = webView.ExecuteJavascriptWithResult( "window" );
 int windowInt = (int)webView.ExecuteJavascriptWithResult( "window" );
 // Throws an InvalidCastException.
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 Dim windowStr As JSObject = webView.ExecuteJavascriptWithResult("window")
 ' The conversion succeeds and the value of windowStr is "[object DOMWindow]".
 
@@ -173,7 +173,7 @@ JSValue windowInt = webView.ExecuteJavascriptWithResult( "window" );
 if ( !windowInt.IsNumber )
     return;
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 Dim windowInt As JSValue = webView.ExecuteJavascriptWithResult("window")
 
 If Not windowInt.IsNumber Then
@@ -255,7 +255,7 @@ JSObject myObject = webView.ExecuteJavascriptWithResult( "42" );
 if ( !myObject )
     return;
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 ' ExecuteJavascriptWithResult returns a JSValue which in this
 ' case it will represent the returned number but casting to
 ' JSObject will still succeed, returning an invalid JSObject.
@@ -293,7 +293,7 @@ if ( myFunction.Call( element ) )
     element.InvokeAsync( "click" );
 }
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 Dim element As JSObject = webView.ExecuteJavascriptWithResult("document.getElementById('link_a')")
 
 If Not CBool(element) Then Return
@@ -334,7 +334,7 @@ Attempting to acquire the value of a JavaScript object's member that does not ex
 {% highlight csharp %}
 JSValue someVar = webView.ExecuteJavascriptWithResult( "someVar" );
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 Dim someVar As JSValue = webView.ExecuteJavascriptWithResult("someVar")
 {% endhighlight %}
 
@@ -352,7 +352,7 @@ if ( someVar.IsUndefined )
     }
 }
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 If someVar.IsUndefined Then
     ' The call returned JSValue.Undefined but this does not
     ' necessarily mean that 'someVar' is 'undefined'. The
@@ -375,7 +375,7 @@ if ( !someVar )
     // then you should use JSValue.IsUndefined.
 }
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 If Not CBool(someVar) Then
     ' 'someVar' is not a valid usable value or object but this 
     ' does not necessarily mean that 'someVar' is 'undefined'.
@@ -406,7 +406,7 @@ JSObject myObject = new JSObject();
 myObject[ "name" ] = "Bob";
 myObject[ "age" ] = 42;
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 Dim myObject As JSObject = New JSObject()
 myObject("name") = "Bob"
 myObject("age") = 42
@@ -445,7 +445,7 @@ String name = person[ "name" ];
 int age = (int)person[ "age" ];
 // Value of age is '22'
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 Dim person As JSObject = webView.ExecuteJavascriptWithResult("Person")
 
 If Not CBool(person) Then Return
@@ -494,7 +494,7 @@ if ( !chatElement )
 // Asynchronously post the message.
 window.InvokeAsync( "addChatMessage", chatElement, "Bob", "Hello world!" );
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 ' Retrieve the global 'window' object from the page.
 Dim window As JSObject = webView.ExecuteJavascriptWithResult("window")
   
@@ -551,7 +551,7 @@ if ( !link )
 
 link.click();
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 Option Explicit Off
 
 [...]
@@ -618,7 +618,7 @@ private JSValue onReadOnlyGet( object sender, JavascriptMethodEventArgs e )
 	return ( (IWebView)sender ).CreationTime.ToString();
 }
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 Option Explicit Off
 
 [...]
@@ -731,7 +731,7 @@ private void OnMouseOverAsyncHandler( object sender, JavascriptMethodEventArgs e
 	Console.WriteLine( message );
 }
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 Option Explicit Off
 
 [...]
@@ -825,7 +825,7 @@ private void OnMouseOverAsyncHandler( object sender, JavascriptMethodEventArgs e
 	Console.WriteLine( message );
 }
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 Option Explicit Off
 
 [...]
@@ -922,7 +922,7 @@ if ( !myObject && ( webView.GetLastError() != Error.None ) ) {
   // Handle error here (if any).
 }
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 Dim myObject As JSObject = webView.ExecuteJavascriptWithResult("myObject")
 If (Not myObject) AndAlso (webView.GetLastError() <> Error.None) Then
   ' Handle error here (if any).
@@ -937,7 +937,7 @@ if ( foobar.IsUndefined && ( myObject.GetLastError() != Error.None ) ) {
   // Handle error here (if any).
 }
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 Dim foobar As JSValue = myObject("foobar")
 If foobar.IsUndefined AndAlso (myObject.GetLastError() <> Error.None) Then
   ' Handle error here (if any).
@@ -963,7 +963,7 @@ private void OnConsoleMessage( object sender, ConsoleMessageEventArgs e )
        String.Format( "[Line: {0}] {1}", e.LineNumber, e.Message ) );
 }
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 AddHandler webView.ConsoleMessage, AddressOf OnConsoleMessage
 
 [...]
@@ -1020,7 +1020,7 @@ catch ( Exception ex )
     }
 }
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 Option Explicit Off
 
 [...]
@@ -1089,7 +1089,7 @@ myLocalObject.Bind( "myMethod", (JavascriptMethodHandler)onMyMethod );
 // This will not be executed. The exception above has exited the JEC routine.
 myLocalObject[ "myProperty" ] = 5;
 {% endhighlight %}
-{% highlight vb.net %}
+{% highlight vbnet %}
 Dim myObject As Object = CType(webControl.ExecuteJavascriptWithResult("myObject"), JSObject)
 
 If Not myObject Then
