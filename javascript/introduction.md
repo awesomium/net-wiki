@@ -131,7 +131,7 @@ The [`JSValue`](http://docs.awesomium.net/?tc=T_Awesomium_Core_JSValue) class is
 
 <tr><td><code>String</code></td><td><a href="http://msdn2.microsoft.com/en-us/library/s1wwdcbf" target="_blank">String</a></td><td>You can explicitly or implicitly cast from and to a <code>JSValue</code>.<p></p>You can get the textual representation of any JavaScript value, even if it is not a <code>String</code>.</td></tr>
 
-<tr><td><code>Array</code></td><td><code>JSValue[]</</code></td><td>You can explicitly cast from and explicitly or implicitly cast to, a <code>JSValue</code>.<p></p><code>JSValue</code> provides an indexer that allows you to acquire or edit the members of a JavaScript <code>Array</code> directly through <code>JSValue</code>.</td></tr>
+<tr><td><code>Array</code></td><td><code>JSValue[]</code></td><td>You can explicitly cast from and explicitly or implicitly cast to, a <code>JSValue</code>.<p></p><code>JSValue</code> provides an indexer that allows you to acquire or edit the members of a JavaScript <code>Array</code> directly through <code>JSValue</code>.</td></tr>
 
 <tr><td><code>Object</code></td><td><a href="http://docs.awesomium.net/?tc=T_Awesomium_Core_JSObject" target="">JSObject</a></td><td>You can explicitly or implicitly cast from and to a <code>JSValue</code>.<p></p>Any <code>JSValue</code> can be converted to <code>JSObject</code>. If the <code>JSValue</code> does not represent a JavaScript <code>Object</code>, a special invalid (undefined) <code>JSObject</code> is returned that when checked against <code>null</code> (<code>Nothing</code> in Visual Basic) will return <code>true</code> and when converted to <code>Boolean</code> will be converted to <code>false</code>.</td></tr>
 

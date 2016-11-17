@@ -420,6 +420,9 @@ section th {
   border-bottom: 1px solid #e8e8eb;
   color: #635e70;
 }
+section tr {
+  border-bottom: 1px solid #e8e8eb;
+}
 
 /* -------------------- */
 
