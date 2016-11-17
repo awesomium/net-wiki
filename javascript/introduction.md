@@ -591,16 +591,16 @@ Using `Global`, you avoid additional synchronous calls to the child process to a
 {% highlight csharp %}
 private void OnDocumentReady( object sender, DocumentReadyEventArgs e )
 {
-	// When ReadyState is Ready, you can execute JavaScript against
-	// the DOM but all resources are not yet loaded. Wait for Loaded.
-	if ( e.ReadyState == DocumentReadyState.Ready )
+    // When ReadyState is Ready, you can execute JavaScript against
+    // the DOM but all resources are not yet loaded. Wait for Loaded.
+    if ( e.ReadyState == DocumentReadyState.Ready )
 		return;
 
     // Get the current Global environment.
-	var global = e.Environment;
+    var global = e.Environment;
 
-	if ( !global )
-		return;
+    if ( !global )
+        return;
 
     // Create a property descriptor.
     dynamic propConf = new JSObject();
@@ -705,10 +705,10 @@ if (myDiv) {
 {% highlight csharp %}
 private void OnDocumentReady( object sender, DocumentReadyEventArgs e )
 {
-	// When ReadyState is Ready, you can execute JavaScript against
-	// the DOM but all resources are not yet loaded. Wait for Loaded.
-	if ( e.ReadyState == DocumentReadyState.Ready )
-		return;
+    // When ReadyState is Ready, you can execute JavaScript against
+    // the DOM but all resources are not yet loaded. Wait for Loaded.
+    if ( e.ReadyState == DocumentReadyState.Ready )
+        return;
 
     // We will add custom methods to the prototype of Node,
     // the base class of all DOM elements.
