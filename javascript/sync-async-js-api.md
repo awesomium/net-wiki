@@ -34,7 +34,7 @@ The **benefit** of synchronous calls, is the ability to synchronously return a r
 // Synchronously invoke 'getElementById' allowing to get response.
 JSObject userDiv = document.Invoke( "getElementById", "userDiv" );
 {% endhighlight %}
-{% highlight vb %}
+{% highlight vbnet %}
 ' Synchronously invoke 'getElementById' allowing to get response.
 Dim userDiv As JSObject = document.Invoke("getElementById", "userDiv")
 {% endhighlight %}
@@ -60,7 +60,7 @@ private JSValue OnGetNewContent( JSValue[] arguments )
         String.Empty;
 }
 {% endhighlight %}
-{% highlight vb %}
+{% highlight vbnet %}
 ' Create a synchronous custom method and bind to it.
 userDiv.Bind("getNewContent", AddressOf OnGetNewContent)
 
@@ -113,7 +113,7 @@ private void OnJavascriptRequest( Object sender, JavascriptRequestEventArgs e )
     // from inside a synchronous JavaScript event handler.
 }
 {% endhighlight %}
-{% highlight vb %}
+{% highlight vbnet %}
 AddHandler webView.JavascriptRequest, AddressOf webView_JavascriptRequest
 
 [...]
@@ -153,7 +153,7 @@ private JSValue OnSetNewContent( JSValue[] arguments )
     [...]
 }
 {% endhighlight %}
-{% highlight vb %}
+{% highlight vbnet %}
 ' Create a synchronous custom method and bind to it.
 userDiv.Bind("setNewContent", AddressOf OnSetNewContent)
 
@@ -228,7 +228,7 @@ private void OnDocumentReady( object sender, DocumentReadyEventArgs e )
     }
 }
 {% endhighlight %}
-{% highlight vb %}
+{% highlight vbnet %}
 Option Explicit Off
 
 [...]
@@ -337,7 +337,7 @@ void OnJavascriptMessage( object sender, JavascriptMessageEventArgs e )
     e.Result = sources;
 }
 {% endhighlight %}
-{% highlight vb %}
+{% highlight vbnet %}
 Option Explicit Off
 
 [...]
@@ -451,7 +451,7 @@ private void OnSetNewContent( JSValue[] arguments )
         String.Empty;
 }
 {% endhighlight %}
-{% highlight vb %}
+{% highlight vbnet %}
 ' Create an asynchronous custom method and bind to it.
 userDiv.BindAsync("setNewContent", AddressOf OnSetNewContent)
 
