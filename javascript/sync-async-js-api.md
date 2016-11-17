@@ -16,7 +16,7 @@ weight: 2
 
 Awesomium uses a multi-process architecture. Each [`IWebView`](http://docs.awesomium.net/?tc=T_Awesomium_Core_IWebView) instance is isolated and rendered in a separate process. V8 and client-side JavaScript, also execute in these separate (child) processes. Method calls to and from the web-page, are sent via a piped message to and from the child process. Such calls can be either *synchronous* or *asynchronous*.
 
-Most managed handlers of [JavaScript-related events](#predefined_bindings) and the handlers of custom JavaScript methods (see [Declaring Custom Method Callbacks](introduction.html#declaring_custom_method_callbacks)), are called in a **[Javascript Execution Context (JEC)](jec.html)**. Depending on how the handler is called, synchronously or asynchronously, a *synchronous* or *asynchronous* JEC is created.
+Most managed handlers of [JavaScript-related events](introduction.html#predefined-bindings) and the handlers of custom JavaScript methods (see [Declaring Custom Method Callbacks](introduction.html#declaring-custom-method-callbacks)), are called in a **[Javascript Execution Context (JEC)](jec.html)**. Depending on how the handler is called, synchronously or asynchronously, a *synchronous* or *asynchronous* JEC is created.
 
 **Read [this article](jec.html) for details about Javascript Execution Contexts**. 
 
@@ -39,7 +39,7 @@ JSObject userDiv = document.Invoke( "getElementById", "userDiv" );
 Dim userDiv As JSObject = document.Invoke("getElementById", "userDiv")
 {% endhighlight %}
 
-Likewise, JavaScript can synchronously call back to the hosting application through members of the [Javascript Interoperation Framework](jif.html) or through [custom JavaScript methods](introduction.html#declaring_custom_method_callbacks):
+Likewise, JavaScript can synchronously call back to the hosting application through members of the [Javascript Interoperation Framework](jif.html) or through [custom JavaScript methods](introduction.html#declaring-custom-method-callbacks):
 
 {% highlight csharp %}
 // Create a synchronous custom method and bind to it.
@@ -392,18 +392,18 @@ End Sub
 
 Asynchronous method calls are executed in the next update pass of the `WebCore`; they do not return a value and do not block the main or child process.
 
-Handlers of asynchronous [custom JavaScript methods](introduction.html#declaring_custom_method_callbacks) return no value (return `void` in C#) while JavaScript code in the web-page that invokes asynchronous methods will always receive *`undefined`* and code execution will resume immediately.
+Handlers of asynchronous [custom JavaScript methods](introduction.html#declaring-custom-method-callbacks) return no value (return `void` in C#) while JavaScript code in the web-page that invokes asynchronous methods will always receive *`undefined`* and code execution will resume immediately.
 
 #### Benefits
 
-Methods that are called asynchronously do not have any of the [limitations of synchronous method calls](#cons_sync). What's more, since asynchronous methods are called in an *asynchronous* [Javascript Execution Context](jec.html), user code can access and use essential objects of the loaded web-page's current JavaScript environment through [`Global`](introduction.html#global_class).
+Methods that are called asynchronously do not have any of the [limitations of synchronous method calls](#limitations). What's more, since asynchronous methods are called in an *asynchronous* [Javascript Execution Context](jec.html), user code can access and use essential objects of the loaded web-page's current JavaScript environment through [`Global`](introduction.html#global-class).
 
 Here's a list of the major benefits of asynchronous method calls:
 
 * **Performance**. Asynchronous method calls do not block the main or child process. Code execution resumes immediately after invoking an asynchronous method.
 * **You can make synchronous calls from inside an asynchronous JavaScript method/event handler**.
 * **You can pass JavaScript objects to an asynchronous JavaScript method handler**.
-* **You can acquire and work with JavaScript objects from inside an asynchronous JavaScript method/event handler**. The easiest way to do this is by using the available instance of [`Global`](introduction.html#global_class).
+* **You can acquire and work with JavaScript objects from inside an asynchronous JavaScript method/event handler**. The easiest way to do this is by using the available instance of [`Global`](introduction.html#global-class).
 * **An instance of [`Global`](introduction.html#global_class) is available within every asynchronous [Javascript Execution Context (JEC)](jec.html)**. It can either be accessed through the `Environment` property of the `EventArgs` of a JavaScript-related event (e.g. [`DocumentReadyEventArgs.Environment`](http://docs.awesomium.net/?tc=P_Awesomium_Core_DocumentReadyEventArgs_Environment)), or through [`Global.Current`](http://docs.awesomium.net/?tc=P_Awesomium_Core_Global_Current).
 
 {% highlight csharp %}

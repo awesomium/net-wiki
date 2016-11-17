@@ -915,7 +915,7 @@ Most managed handlers of [JavaScript-related events](#predefined-bindings) and o
 
 For details, exammples as well as a list of benefits and limitations of both *synchronous* and *asynchronous* calls, read:
 
-* **[Synchronous & Asynchronous API](sync_async_js_api.html)**
+* **[Synchronous & Asynchronous API](sync-async-js-api.html)**
 * **[Javascript Execution Contexts](jec.html)**
 
 ## Handling Errors
@@ -999,7 +999,7 @@ End Sub
 
 When using [dynamic coding](#dynamic-language-runtime) and Awesomium.NET's support of the **[DLR](http://msdn.microsoft.com/en-us/library/dd233052.aspx)**, binding errors can occur in several cases as described below:
 
-* The owning view of a [remote `JSObject`](#local-jsobjects) has crashed or is no longer *alive* (see: [`IsLive`](http://docs.awesomium.net/?tc=P_Awesomium_Core_IWebView_IsLive)).
+* The owning view of a [remote `JSObject`](#remote-jsobjects) has crashed or is no longer *alive* (see: [`IsLive`](http://docs.awesomium.net/?tc=P_Awesomium_Core_IWebView_IsLive)).
 * When a synchronous call fails because of a [native error](#native-errors).
 * When a remote [`JSObject`](http://docs.awesomium.net/?tc=T_Awesomium_Core_JSObject) is no longer alive (it is disconnected, disposed or deleted on the client-side).
 * When an illegal action is performed on an object (like attempting to invoke a method on a [local `JSObject`](#local-jsobjects)).
@@ -1128,7 +1128,7 @@ myObject.myMethod()
 
 #### Other Resources
 
-* [Synchronous & Asynchronous API](sync_async_js_api.html)
+* [Synchronous & Asynchronous API](sync-async-js-api.html)
 * [JavaScript Interoperation Framework (JIF)](jif.html)
 * [Javascript Execution Context (JEC)](jec.html)
 * [Dynamic Language Runtime (DLR) Support](dlr.html)
