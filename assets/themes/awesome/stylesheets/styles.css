@@ -251,14 +251,18 @@ section pre {
   padding: 6px 10px;
   word-wrap: break-word;
   background: #fafafc;
-  margin-left: -5.2em;
+  margin-left: -2.7em;
   padding-left: 2.7em;
-  margin-right: -5.2em;
+  margin-right: -2.7em;
   padding-right: 2.7em;
   border-top: 1px solid #f0f0f2;
   border-bottom: 1px solid #f0f0f2;
   padding-top: 1em;
   padding-bottom: 1em;
+}
+figure pre {
+  margin-left: -5.2em;
+  margin-right: -5.2em;
 }
 section code {
   border: none;
@@ -420,7 +424,7 @@ section th {
 /* -------------------- */
 
 a small {
-	font-size: 12px;
+  font-size: 12px;
 }
 
 li.show-more {
@@ -436,7 +440,7 @@ li.show-more:hover {
 }
 
 em {
-	font-style: italic;
+  font-style: italic;
 }
 
 strong {
@@ -462,8 +466,8 @@ strong {
 header {
   width:210px;
   float:left;
-	border: none;
-	padding: 0px 25px 22px 40px;
+  border: none;
+  padding: 0px 25px 22px 40px;
   margin: 30px 25px 0 0;
 }
 
@@ -511,12 +515,12 @@ p.header a {
 }
 
 h1.header, h1.header a {
-	/*font-family: Arvo, sans-serif;*/
-	font-size: 24px;
-	font-weight: 500;
-	line-height: 1.3em;
-	border-bottom: none;
-	margin-top: 5px;
+  /*font-family: Arvo, sans-serif;*/
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.3em;
+  border-bottom: none;
+  margin-top: 5px;
 }
 
 h1.header img {
@@ -533,32 +537,32 @@ header ul {
 }
 
 header li {
-	list-style-type: none;
+  list-style-type: none;
   width:132px;
   height:15px;
-	margin-bottom: 12px;
-	line-height: 1em;
-	padding: 6px 6px 6px 7px;
+  margin-bottom: 12px;
+  line-height: 1em;
+  padding: 6px 6px 6px 7px;
 
-	background: #AF0011;
-	background: -moz-linear-gradient(top, #AF0011 0%, #820011 100%);
+  background: #AF0011;
+  background: -moz-linear-gradient(top, #AF0011 0%, #820011 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f8f8f8), color-stop(100%,#dddddd));
   background: -webkit-linear-gradient(top, #AF0011 0%,#820011 100%);
   background: -o-linear-gradient(top, #AF0011 0%,#820011 100%);
   background: -ms-linear-gradient(top, #AF0011 0%,#820011 100%);
   background: linear-gradient(top, #AF0011 0%,#820011 100%);
 
-	border-radius:4px;
+  border-radius:4px;
   border:1px solid #0D0D0D;
 
-	-webkit-box-shadow: inset 0px 1px 1px 0 rgba(233,2,38, 1);
-	box-shadow: inset 0px 1px 1px 0 rgba(233,2,38, 1);
+  -webkit-box-shadow: inset 0px 1px 1px 0 rgba(233,2,38, 1);
+  box-shadow: inset 0px 1px 1px 0 rgba(233,2,38, 1);
 
 }
 
 header li:hover {
-	background: #C3001D;
-	background: -moz-linear-gradient(top, #C3001D 0%, #950119 100%);
+  background: #C3001D;
+  background: -moz-linear-gradient(top, #C3001D 0%, #950119 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f8f8f8), color-stop(100%,#dddddd));
   background: -webkit-linear-gradient(top, #C3001D 0%,#950119 100%);
   background: -o-linear-gradient(top, #C3001D 0%,#950119 100%);
@@ -567,21 +571,21 @@ header li:hover {
 }
 
 a.buttons {
-	-webkit-font-smoothing: antialiased;
-	background: url(../images/arrow-down.png) no-repeat;
-	font-weight: normal;
-	text-shadow: rgba(0, 0, 0, 0.4) 0 -1px 0;
-	padding: 2px 2px 2px 22px;
-	height: 30px;
+  -webkit-font-smoothing: antialiased;
+  background: url(../images/arrow-down.png) no-repeat;
+  font-weight: normal;
+  text-shadow: rgba(0, 0, 0, 0.4) 0 -1px 0;
+  padding: 2px 2px 2px 22px;
+  height: 30px;
 }
 
 a.github {
-	background: url(../images/octocat-small.png) no-repeat 1px;
+  background: url(../images/octocat-small.png) no-repeat 1px;
 }
 
 a.buttons:hover {
-	color: #fff;
-	text-decoration: none;
+  color: #fff;
+  text-decoration: none;
 }
 
 
@@ -665,12 +669,12 @@ footer:hover {
     width:auto;
   }
 
-	footer {
-		border-top: 1px solid #ccc;
-		margin:0 84px 0 50px;
-		padding:0;
-	}
-	
+  footer {
+    border-top: 1px solid #ccc;
+    margin:0 84px 0 50px;
+    padding:0;
+  }
+
   div.page-header h2 {
     padding-top: 0;
   }
@@ -681,21 +685,21 @@ footer:hover {
   }
 
   header {
-	padding: 0px;
-	margin: 0px;
-	width: 100%;
-	border: 0;
-	border-radius: 0;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    border: 0;
+    border-radius: 0;
   }
-  
+
   header h1 {
     padding: 15px;
   }
-  
+
   h1.header, h1.header a {
     margin-top: 0;
   }
-  
+
   header p, header h3 {
     display: none;
   }
@@ -737,9 +741,9 @@ footer:hover {
     margin:0 0 30px;
   }
 
-	footer {
-		margin: 0 0 0 30px;
-	}
+  footer {
+    margin: 0 0 0 30px;
+  }
 
   header ul, header p.view {
     position:static;
@@ -756,13 +760,13 @@ footer:hover {
     display: none;
   }
 
-	footer {
-		margin: 0 0 0 20px;
-	}
+  footer {
+    margin: 0 0 0 20px;
+  }
 
-	footer a{
-		display:block;
-	}
+  footer a{
+    display:block;
+  }
 
 }
 
@@ -799,7 +803,7 @@ footer:hover {
   background: white;
 }
 .switch input[type=checkbox] {
-	display: none;
+  display: none;
 }
 .switch::before {
   content: "";
@@ -811,7 +815,7 @@ footer:hover {
   background-color: white;
 }
 .switch.on::before {
-	width: 77px;
+  width: 77px;
 }
 .switch > .thumb {
   display: block;
@@ -839,34 +843,34 @@ footer:hover {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f8f7f9', GradientType=1);
 }
 .switch.on > .thumb {
-	-webkit-transform: translate3d(49px,0,0);
-	-o-transform: translateX(49px);
-	-moz-transform: translateX(49px);
+  -webkit-transform: translate3d(49px,0,0);
+  -o-transform: translateX(49px);
+  -moz-transform: translateX(49px);
 }
 .switch:hover > .thumb {
   border: 1px solid #a3a3a8;
 }
 .switch > .thumb::before {
-	content: "C++";
-	display: block;
-	height: 18px;
-	border: none;
-	position: absolute;
-	top: 2px;
-	left: -38px;
-	font-size: 16px;
-	font-weight: bold;
+  content: "C++";
+  display: block;
+  height: 18px;
+  border: none;
+  position: absolute;
+  top: 2px;
+  left: -38px;
+  font-size: 16px;
+  font-weight: bold;
 }
 .switch > .thumb::after {
-	content: ".NET";
-	display: block;
-	height: 18px;
-	border: none;
-	position: absolute;
-	right: -42px;
-	top: 2px;
-	font-size: 16px;
-	font-weight: bold;
+  content: ".NET";
+  display: block;
+  height: 18px;
+  border: none;
+  position: absolute;
+  right: -42px;
+  top: 2px;
+  font-size: 16px;
+  font-weight: bold;
   letter-spacing: -1px;
 }
 
@@ -898,7 +902,7 @@ footer:hover {
   background: white;
 }
 .langswitch input[type=checkbox] {
-	display: none;
+  display: none;
 }
 .langswitch::before {
   content: "";
@@ -910,7 +914,7 @@ footer:hover {
   background-color: white;
 }
 .langswitch.on::before {
-	width: 65px;
+  width: 65px;
 }
 .langswitch > .thumb {
   display: block;
@@ -938,29 +942,29 @@ footer:hover {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f8f7f9', GradientType=1);
 }
 .langswitch.on > .thumb {
-	-webkit-transform: translate3d(37px,0,0);
-	-o-transform: translateX(49px);
-	-moz-transform: translateX(49px);
+  -webkit-transform: translate3d(37px,0,0);
+  -o-transform: translateX(49px);
+  -moz-transform: translateX(49px);
 }
 .langswitch:hover > .thumb {
   border: 1px solid #a3a3a8;
 }
 .langswitch > .thumb::before {
-	content: "C#";
-	display: block;
-	height: 18px;
-	border: none;
-	position: absolute;
-	top: 3px;
-	left: -25px;
+  content: "C#";
+  display: block;
+  height: 18px;
+  border: none;
+  position: absolute;
+  top: 3px;
+  left: -25px;
 }
 .langswitch > .thumb::after {
-	content: "VB";
-	display: block;
-	height: 18px;
-	border: none;
-	position: absolute;
-	right: -26px;
-	top: 3px;
-    letter-spacing: -1px;
+  content: "VB";
+  display: block;
+  height: 18px;
+  border: none;
+  position: absolute;
+  right: -26px;
+  top: 3px;
+  letter-spacing: -1px;
 }

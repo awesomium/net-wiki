@@ -36,13 +36,13 @@ weight: 1
       * [CLR Example](#clr-example)
       * [DLR Example](#dlr-example)
 * [Global JavaScript Objects](#global-javascript-objects)    
-* [Synchronous & Asynchronous API](#synchronous--asynchronous_api)
+* [Synchronous & Asynchronous API](#synchronous--asynchronous-api)
 * [Handling Errors](#handling-errors)
   * [Native Errors](#native-errors)
   * [JavaScript Errors](#javascript-errors)
   * [Binding Errors](#binding-errors)
   * [Javascript Execution Context](#javascript-execution-context)
-* [Additional Resources](#additional-resources)
+* [Additional Resources](#see-also)
 
 
 ## The V8 JavaScript Engine
