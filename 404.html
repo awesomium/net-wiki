@@ -20,23 +20,23 @@
     <script type="text/javascript" src="//use.typekit.net/cic4rss.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     <script>
-	$(document).ready(function() {
-		$('ul.truncate').each(function(){
-		  var max = 4
-		  if ($(this).find("li").length > max) {
-			$(this)
-			  .find('li:gt('+max+')')
-			  .hide()
-			  .end()
-			  .append(
-				$('<li class="show-more">Show More...</li>').click( function(){
-				  $(this).siblings(':hidden').show().end().remove();
-				})
-			);
-		  }
-		});
-	});
-	</script>
+    $(document).ready(function() {
+        $('ul.truncate').each(function(){
+          var max = 4
+          if ($(this).find("li").length > max) {
+            $(this)
+              .find('li:gt('+max+')')
+              .hide()
+              .end()
+              .append(
+                $('<li class="show-more">Show More...</li>').click( function(){
+                  $(this).siblings(':hidden').show().end().remove();
+                })
+            );
+          }
+        });
+    });
+    </script>
   </head>
   <body>
     <div class="wrapper">
@@ -93,7 +93,7 @@
                                 switchControl.className = 'langswitch off';
                             } else {
                                 switchControl.className = ("langswitch on");
-                            }                            
+                            }
                             checkbox = switchControl.lastElementChild;
                             checkbox.checked = !checkbox.checked;
                             toggleDotNetLanguage(checkbox.checked);

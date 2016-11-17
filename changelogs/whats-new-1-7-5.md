@@ -59,7 +59,7 @@ This is only a short list of the new features:
 **For more details and presentation of the revemped Javascript Integration API, read the following articles**:
 
 * [Introduction to JavaScript Integration](../javascript/introduction.html)
-* [Synchronous & Asynchronous API](../javascript/sync_async_js_api.html)
+* [Synchronous & Asynchronous API](../javascript/sync-async-js-api.html)
 * [Javascript Execution Context (JEC)](../javascript/jec.html)
 * [Dynamic Language Runtime (DLR) Support](../javascript/dlr.html)
 * [Javascript Interoperation Framework (JIF)](http://docs.awesomium.net/?tc=R_Project_OSMJIFHelp)

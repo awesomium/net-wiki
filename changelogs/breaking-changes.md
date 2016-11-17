@@ -72,7 +72,8 @@ The new regular API includes four (4) methods to create *synchronous* JavaScript
 ##### Old Method:
 
 {% highlight csharp %}
-using ( JSObject myGlobalObject = webView.CreateGlobalJavascriptObject( "myGlobalObject" ) )
+using ( JSObject myGlobalObject = webView.CreateGlobalJavascriptObject( 
+    "myGlobalObject" ) )
 {
     myGlobalObject.Bind( "myMethod", true, OnMyMethod );
     myGlobalObject.Bind( "myAsyncMethod", false, OnMyMethod );
@@ -87,7 +88,8 @@ private void OnMyMethod( object sender, JavascriptMethodEventArgs e )
 }
 {% endhighlight %}
 {% highlight vbnet %}
-Using myGlobalObject As JSObject = webView.CreateGlobalJavascriptObject("myGlobalObject")
+Using myGlobalObject As JSObject = webView.CreateGlobalJavascriptObject(
+    "myGlobalObject")
     myGlobalObject.Bind("myMethod", True, AddressOf OnMyMethod)
     myGlobalObject.Bind("myAsyncMethod", False, AddressOf OnMyMethod)
 End Using
@@ -102,7 +104,8 @@ End Sub
 ##### New Method:
 
 {% highlight csharp %}
-using ( JSObject myGlobalObject = webView.CreateGlobalJavascriptObject( "myGlobalObject" ) )
+using ( JSObject myGlobalObject = webView.CreateGlobalJavascriptObject(
+    "myGlobalObject" ) )
 {
     // The method name is determined from the passed handler's name.
     // Therefore we cannot pass a lambda expression to these overloads.
@@ -124,12 +127,14 @@ private void myAsyncMethod( JSValue[] arguments )
 }
 {% endhighlight %}
 {% highlight vbnet %}
-Using myGlobalObject As JSObject = webView.CreateGlobalJavascriptObject("myGlobalObject")
+Using myGlobalObject As JSObject = webView.CreateGlobalJavascriptObject(
+    "myGlobalObject")
     myGlobalObject.Bind(myMethod)
     myGlobalObject.BindAsync(myAsyncMethod)
 End Using
 
-Private Function myMethod(sender As Object, e As JavascriptMethodEventArgs) As JSValue
+Private Function myMethod(sender As Object,
+                          e As JavascriptMethodEventArgs) As JSValue
     ' Return result directly from the handler.
     Return "My response"
 End Function
@@ -146,7 +151,8 @@ End Sub
 ##### Old Method:
 
 {% highlight csharp %}
-dynamic myGlobalObject = (JSObject)webView.ExecuteJavascriptWithResult( "myGlobalObject" );
+dynamic myGlobalObject = (JSObject)webView.ExecuteJavascriptWithResult(
+    "myGlobalObject" );
  
 // Make sure we have the object.
 if ( myGlobalObject == null )
@@ -163,7 +169,8 @@ Option Explicit Off
 
 [...] 
 
-Dim myGlobalObject As Object = CType(webView.ExecuteJavascriptWithResult("myGlobalObject"), JSObject)
+Dim myGlobalObject As Object = CType(webView.ExecuteJavascriptWithResult(
+    "myGlobalObject"), JSObject)
  
 ' Make sure we have the object. 
 If myGlobalObject Is Nothing Then 
@@ -183,7 +190,8 @@ End Using
 {% highlight csharp %}
 // All JSValues can now be implicitly casted to JSObject, even if they do not
 // represent a JavaScript object. See Breaking Change N.3 below.
-dynamic myGlobalObject = (JSObject)webView.ExecuteJavascriptWithResult( "myGlobalObject" );
+dynamic myGlobalObject = (JSObject)webView.ExecuteJavascriptWithResult(
+    "myGlobalObject" );
  
 // Invalid JSObjects are converted to false.
 if ( !myGlobalObject )
@@ -202,7 +210,8 @@ Option Explicit Off
 
 ' All JSValues can now be implicitly casted to JSObject, even if they do not
 ' represent a JavaScript object. See Breaking Change N.3 below.
-Dim myGlobalObject As Object = CType(webView.ExecuteJavascriptWithResult("myGlobalObject"), JSObject)
+Dim myGlobalObject As Object = CType(webView.ExecuteJavascriptWithResult(
+    "myGlobalObject"), JSObject)
  
 ' Invalid dynamic JSObjects are evaluated as False.
 If Not myGlobalObject Then 
@@ -220,8 +229,8 @@ End Using
 #### Additional Resources:
 
 * [Introduction to JavaScript Integration](../javascript/introduction.html)
-* [Synchronous & Asynchronous API](../javascript/sync_async_js_api.html)
-* [Create Custom JavaScript Methods](../javascript/custom_javascript_methods.html)
+* [Synchronous & Asynchronous API](../javascript/sync-async-js-api.html)
+* [Create Custom JavaScript Methods](../javascript/custom-javascript-methods.html)
 
 ### 2. [`JavascriptAsynchMethodEventHandler`](http://docs.awesomium.net/?tc=T_Awesomium_Core_JavascriptAsynchMethodEventHandler) is obsolete.
 
@@ -234,8 +243,8 @@ Since there are now two (2) new method types for specifying *asynchronous* custo
 For examples of using the new available API, **see the refactoring example above and also read**:
 
 * [Introduction to JavaScript Integration](../javascript/introduction.html)
-* [Synchronous & Asynchronous API](../javascript/sync_async_js_api.html)
-* [Create Custom JavaScript Methods](../javascript/custom_javascript_methods.html)
+* [Synchronous & Asynchronous API](../javascript/sync-async-js-api.html)
+* [Create Custom JavaScript Methods](../javascript/custom-javascript-methods.html)
 
 ### 3. [`JSValue`](http://docs.awesomium.net/?tc=T_Awesomium_Core_JSValue) is now a class.
 
@@ -245,7 +254,7 @@ The following list explains some of the resons for this change:
 
 * Many new features have been added to `JSValue` that could not be implemented if `JSValue` remained an immutable value type. Some of them are the indexer that allows editing JavaScript arrays directly from `JSValue` and the unary and binary operators.
 * `JSValue`, even as it was before 1.7.5, did not qualify almost all of the **[requirements](http://msdn.microsoft.com/en-us/library/ms229017.aspx)** for remaining a structure. Beyond its size, the most important issue was that due to its extensive use with the **Dynamic Language Runtime (DLR)** supported by the Awesomium.NET Javascript Integration, `JSValue` was frequently being boxed/unboxed. Because boxes are objects that are allocated on the heap and are garbage-collected, too much boxing and unboxing can have a negative impact on the heap, the garbage collector, and ultimately the performance of the application. In contrast, no such boxing occurs as reference types are cast. [![][external]](http://www.informit.com/store/framework-design-guidelines-conventions-idioms-and-9780321545619)
-* [`JSValue` is the type that all JavaScript values are being converted to](../javascript/introduction.html#jsvalue_class), when passed to and acquired from V8 or assigned to `JSObject` properties. Reference type assignments copy the reference, whereas value type assignments copy the entire value. Therefore, assignments of large reference types are cheaper than assignments of large value types, as `JSValue` was. [![][external]](http://www.informit.com/store/framework-design-guidelines-conventions-idioms-and-9780321545619)
+* [`JSValue` is the type that all JavaScript values are being converted to](../javascript/introduction.html#jsvalue-class), when passed to and acquired from V8 or assigned to `JSObject` properties. Reference type assignments copy the reference, whereas value type assignments copy the entire value. Therefore, assignments of large reference types are cheaper than assignments of large value types, as `JSValue` was. [![][external]](http://www.informit.com/store/framework-design-guidelines-conventions-idioms-and-9780321545619)
 
 #### Refactoring:
 
@@ -344,14 +353,16 @@ Until version 1.7.5, attempting to cast a `JSValue` that does not represent a Ja
 The following example explains why this feature is added and how you can use the new operators:
 
 {% highlight csharp %}
-// The returned value will be a JSValue of type Integer. However casting to JSObject
-// will still succeed returning an invalid JSObject equivalent to JSValue.Undefined.
+// The returned value will be a JSValue of type Integer. However casting to
+// JSObject will still succeed returning an invalid JSObject equivalent to
+// JSValue.Undefined.
 dynamic myObject = (JSObject)webView.ExecuteJavascriptWithResult( "0" );
-// There's a new operator that converts JSObjects to Boolean. An invalid JSObject will 
-// be converted to false. Notice that the result above, is assigned to a weakly typed 
-// variable (dynamic). If casting to JSObject would assign 'null' to 'myObject' the
-// CLR/DLR would not be able to know which type's operators to invoke to convert the
-// value to Boolean and the following condition would fail with a message like:
+// There's a new operator that converts JSObjects to Boolean. An invalid
+// JSObject will be converted to false. Notice that the result above, is
+// assigned to a weakly typed variable (dynamic). If casting to JSObject
+// would assign 'null' to 'myObject' the CLR/DLR would not be able to know
+// which type's operators to invoke to convert the value to Boolean and the
+// following condition would fail with a message like:
 // "Cannot convert null to Boolean".
 if ( !myObject )
     return;
@@ -361,15 +372,18 @@ Option Explicit Off
 
 [...]
 
-' The returned value will be a JSValue of type Integer. However casting to JSObject
-' will still succeed returning an invalid JSObject equivalent to JSValue.Undefined.
+' The returned value will be a JSValue of type Integer. However casting to
+' JSObject will still succeed returning an invalid JSObject equivalent to
+' JSValue.Undefined.
 Dim myObject = CType(webView.ExecuteJavascriptWithResult("0"), JSObject)
-' There's a new operator that converts JSObjects to Boolean. An invalid JSObject will 
-' be converted to false. Notice that the result above, is assigned to a weakly typed 
-' variable (dynamic). If casting to JSObject would assign 'null' to 'myObject' the
-' CLR/DLR would not be able to know which type's operators to invoke to convert the
-' value to Boolean and the following condition would fail with a message like:
-' "Cannot convert Nothing to Boolean" or "Cannot find a Not unary operator for Nothing".
+' There's a new operator that converts JSObjects to Boolean. An invalid
+' JSObject will be converted to false. Notice that the result above, is
+' assigned to a weakly typed variable (dynamic). If casting to JSObject
+' would assign 'null' to 'myObject' the CLR/DLR would not be able to know
+' which type's operators to invoke to convert the value to Boolean and the
+' following condition would fail with a message like:
+' "Cannot convert Nothing to Boolean" or "Cannot find a Not unary operator
+' for Nothing".
 If Not myObject Then Return
 {% endhighlight %}
 
@@ -390,8 +404,9 @@ if ( myObject )
     return;    
 }
 
-// The returned value will be a JSValue of type Integer. However casting to JSObject
-// will still succeed returning an invalid JSObject equivalent to JSValue.Undefined.
+// The returned value will be a JSValue of type Integer. However casting to
+// JSObject will still succeed returning an invalid JSObject equivalent to
+// JSValue.Undefined.
 myObject = webView.ExecuteJavascriptWithResult( "0" );
 
 // When an invalid JSObject is checked against 'null', it will return 'true':
@@ -420,8 +435,9 @@ If CBool(myObject) Then
     Return    
 End If
 
-' The returned value will be a JSValue of type Integer. However casting to JSObject
-' will still succeed returning an invalid JSObject equivalent to JSValue.Undefined.
+' The returned value will be a JSValue of type Integer. However casting to
+' JSObject will still succeed returning an invalid JSObject equivalent to
+' JSValue.Undefined.
 myObject = webView.ExecuteJavascriptWithResult("0")
 
 ' When an invalid JSObject is checked against 'null', it will return 'true':
@@ -498,7 +514,8 @@ private void OnDocumentReady( Object sender, DocumentReadyEventArgs e )
     // with the corresponding property names and values.
     var props = new JSObject();
     // Specify the property name, the data property descriptor and initial value.
-    props[ "myProperty", new JSPropertyDescriptor() { Writable = false } ] = "Ready";
+    props[ "myProperty",
+           new JSPropertyDescriptor() { Writable = false } ] = "Ready";
     // Create a remote object using generics of the global Object and
     // assign it to a global variable. Note that members of the Global
     // class, are exposed as 'dynamic'.
@@ -544,7 +561,8 @@ Private Sub OnDocumentReady(sender As Object, e As DocumentReadyEventArgs)
     ' with the corresponding property names and values.
     Dim props As New JSObject()
     ' Specify the property name, the data property descriptor and initial value.
-    props("myProperty", New JSPropertyDescriptor() With { .Writable = false }) = "Ready"
+    props("myProperty",
+          New JSPropertyDescriptor() With { .Writable = false }) = "Ready"
     ' Create a remote object using generics of the global Object and
     ' assign it to a global variable. Note that members of the Global
     ' class, are exposed as 'dynamic'.

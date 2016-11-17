@@ -76,6 +76,9 @@ Private Function OnGetNewContent(arguments() As JSValue) As JSValue
         String.Empty)
 End Function
 {% endhighlight %}
+
+Client-side **JavaScript** code can now use our cutom method like so:
+
 {% highlight js %}
 var userDiv = document.getElementById('userDiv');
 
@@ -87,7 +90,7 @@ if (userDiv) {
 
 #### Limitations
 
-The major limitation of synchronous calls is that **you cannot make synchronous invocations from inside a synchronous JavaScript method/event handler, as this would cause a deadlock**:
+The major limitation of synchronous calls is that **you cannot make synchronous invocations from inside a synchronous JavaScript method handler or JavaScript-related event, as this would cause a deadlock**:
 
 {% highlight js %}
 // Ask the hosting application to minimze the hosting window.
@@ -108,9 +111,10 @@ webView.JavascriptRequest += OnJavascriptRequest;
 // OSMJIF.maximize, OSMJIF.restore and OSMJIF.exit.
 private void OnJavascriptRequest( Object sender, JavascriptRequestEventArgs e )
 {
-    String readyState = webView.ExecuteJavascriptWithResult( "document.readyState" );
-    // Throws an InvalidOperationException! You cannot make synchronous invocations 
-    // from inside a synchronous JavaScript event handler.
+    String readyState = webView.ExecuteJavascriptWithResult(
+        "document.readyState" );
+    // Throws an InvalidOperationException! You cannot make synchronous
+    // invocations from inside a synchronous JavaScript event handler.
 }
 {% endhighlight %}
 {% highlight vbnet %}
@@ -124,8 +128,8 @@ Private Sub webView_JavascriptRequest(sender As Object,
                                       e As JavascriptRequestEventArgs)
     Dim readyState As String = webView.ExecuteJavascriptWithResult(
         "document.readyState")
-    ' Throws an InvalidOperationException! You cannot make synchronous invocations 
-    ' from inside a synchronous JavaScript event handler.
+    ' Throws an InvalidOperationException! You cannot make synchronous
+    ' invocations from inside a synchronous JavaScript event handler.
 End Sub
 {% endhighlight %}
 
@@ -185,16 +189,16 @@ Finally, multiple **synchronous calls can affect the performance of your applica
 {% highlight csharp %}
 private void OnDocumentReady( object sender, DocumentReadyEventArgs e )
 {
-	// When ReadyState is Ready, you can execute JavaScript against
-	// the DOM but all resources are not yet loaded. Wait for Loaded.
-	if ( e.ReadyState == DocumentReadyState.Ready )
-		return;
+    // When ReadyState is Ready, you can execute JavaScript against
+    // the DOM but all resources are not yet loaded. Wait for Loaded.
+    if ( e.ReadyState == DocumentReadyState.Ready )
+        return;
 
     // Get the current Global environment.
-	var global = e.Environment;
+    var global = e.Environment;
 
-	if ( !global )
-		return;
+    if ( !global )
+        return;
 
     // Synchronous call here for |getElementsByTagName|.
     var images = global.document.getElementsByTagName( "img" );
@@ -234,12 +238,12 @@ Option Explicit Off
 [...]
 
 Private Sub OnDocumentReady(sender As Object, e As DocumentReadyEventArgs)
-	' When ReadyState is Ready, you can execute JavaScript against
-	' the DOM but all resources are not yet loaded. Wait for Loaded.
-	If e.ReadyState = DocumentReadyState.Ready Then Return
+    ' When ReadyState is Ready, you can execute JavaScript against
+    ' the DOM but all resources are not yet loaded. Wait for Loaded.
+    If e.ReadyState = DocumentReadyState.Ready Then Return
 
-	' Get the current Global environment.
-	Dim js As Global = e.Environment
+    ' Get the current Global environment.
+    Dim js As Global = e.Environment
 
     If Not CBool(js) Then Return
 
@@ -290,10 +294,10 @@ webView.JavascriptMessage += OnJavascriptMessage;
 
 private void OnDocumentReady( object sender, DocumentReadyEventArgs e )
 {
-	// When ReadyState is Ready, you can execute JavaScript against
-	// the DOM but all resources are not yet loaded. Wait for Loaded.
-	if ( e.ReadyState == DocumentReadyState.Ready )
-		return;
+    // When ReadyState is Ready, you can execute JavaScript against
+    // the DOM but all resources are not yet loaded. Wait for Loaded.
+    if ( e.ReadyState == DocumentReadyState.Ready )
+        return;
 
     // Called asynchronously and injects JavaScript in the page
     // that does most of the job.
@@ -343,9 +347,9 @@ Option Explicit Off
 [...]
 
 Private Sub OnDocumentReady(sender As Object, e As DocumentReadyEventArgs)
-	' When ReadyState is Ready, you can execute JavaScript against
-	' the DOM but all resources are not yet loaded. Wait for Loaded.
-	If e.ReadyState = DocumentReadyState.Ready Then Return
+    ' When ReadyState is Ready, you can execute JavaScript against
+    ' the DOM but all resources are not yet loaded. Wait for Loaded.
+    If e.ReadyState = DocumentReadyState.Ready Then Return
 
     ' Called asynchronously and injects JavaScript in the page
     ' that does most of the job.
@@ -491,6 +495,9 @@ Private Sub OnSetNewContent(arguments() As JSValue)
         String.Empty)
 End Sub
 {% endhighlight %}
+
+Client-side **JavaScript**:
+
 {% highlight js %}
 var userDiv = document.getElementById('userDiv');
 

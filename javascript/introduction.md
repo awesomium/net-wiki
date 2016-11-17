@@ -47,7 +47,7 @@ weight: 1
 
 ## The V8 JavaScript Engine
 
-Awesomium incorporates the V8 JavaScript Engine that implements ECMAScript as specified in ECMA-262, 5th edition.
+Awesomium incorporates the V8 JavaScript Engine that implements ECMAScript as specified in [ECMA-262, 5th edition ![][external]](http://www.ecma-international.org/ecma-262/5.1/index.html).
 
 V8 compiles and executes JavaScript source code, handles memory allocation for objects, and garbage collects objects it no longer needs.
 
@@ -515,17 +515,21 @@ window.InvokeAsync("addChatMessage", chatElement, "Bob", "Hello world!")
 
 #### Lifetime of Objects
 
-All managed JSObjects, local and remote, are disposable. Disposing the managed `JSObject` wrapper releases resources and destroys the native JSObject instance. Starting with **v.1.7.5**, all instances of `JSObject` created or acquired within a [Javascript Execution Context (JEC)](jec.html) (including JSObjects passed as arguments to a managed handler), are automatically disposed upon exiting the routine associated with the execution context.
+All managed JSObjects, local and remote, are disposable. Disposing the managed `JSObject` wrapper releases resources and destroys the native JSObject instance.
+
+>Starting with **v.1.7.5**, all instances of `JSObject` created or acquired within a [Javascript Execution Context (JEC)](jec.html) (including JSObjects passed as arguments to a managed handler), are automatically disposed upon exiting the routine associated with the execution context.
 
 **To make a copy of an object that persists outside a managed handler, use the [`Clone`](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_Clone) method**.
 
-Remote JSObjects are reference-counted and collected by the V8 garbage collector. When you acquire or receive a JavaScript `Object` to the main process as `JSObject`, this ref-count is incremented, and when the `JSObject` is disposed, the ref-count is decremented.
+**Remote JSObjects** are reference-counted and collected by the V8 garbage collector. When you acquire or receive a JavaScript `Object` to the main process as `JSObject`, this ref-count is incremented, and when the `JSObject` is disposed, the ref-count is decremented.
 
 You can think of remote JSObjects as a pointer to a V8 object on the page. Every time you make a copy of a `JSObject` (via [`Clone`](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_Clone)), only the reference ([remote ID](http://docs.awesomium.net/?tc=P_Awesomium_Core_JSObject_RemoteId)) is copied; a deep copy is not made.
 
-When the V8 object goes away (usually due to a page navigation), the reference will no longer be valid and method calls may fail. If you need a remote object to be available to all pages and persistent in V8 throughout the lifetime of the view, you should create a [Global JavaScript Object](#global-javascript-objects).
+When the V8 object goes away (usually due to a page navigation), the reference will no longer be valid and method calls may fail.
 
-Local JSObjects are not associated with any web-view and web-page. You can think of them as an immutable dictionary of data that can be passed to multiple web-pages of different views by value. However local JSObjects should still be disposed and those created within a [Javascript Execution Context (JEC)](jec.html) are also automatically disposed upon exiting the routine associated with the execution context.
+>If you need a remote object to be available to all pages and persistent in V8 throughout the lifetime of the view, you should create a [Global JavaScript Object](#global-javascript-objects).
+
+**Local JSObjects** are not associated with any web-view and web-page. You can think of them as an immutable dictionary of data that can be passed to multiple web-pages of different views by value. However local JSObjects should still be disposed and those created within a [Javascript Execution Context (JEC)](jec.html) are also automatically disposed upon exiting the routine associated with the execution context.
 
 Just like remote JSObjects, When you make a copy of a local object (via [`Clone`](http://docs.awesomium.net/?tc=M_Awesomium_Core_JSObject_Clone)), only the reference to the internal dictionary of properties is copied and a deep copy is not made. Changes to the clone will affect the original and vice versa, until the object is passed to a remote web-page (see [Local Objects](#local-objects)).
 
@@ -537,7 +541,7 @@ Just like remote JSObjects, When you make a copy of a local object (via [`Clone`
 
 #### Dynamic Language Runtime
 
-`JSObject` and any inheritors of it, support the **[Dynamic Language Runtime (DLR)](http://msdn.microsoft.com/en-us/library/dd233052.aspx)**. Support of the DLR adds dynamic features and behavior to the `JSObject` type in C# and Visual Basic that are statically typed languages, enabling easy and fast interoperation with JavaScript that is a dynamic language.
+`JSObject` and any inheritors of it, support the **[Dynamic Language Runtime (DLR) ![][external]](http://msdn.microsoft.com/en-us/library/dd233052.aspx)**. Support of the DLR adds dynamic features and behavior to the `JSObject` type in C# and Visual Basic that are statically typed languages, enabling easy and fast interoperation with JavaScript that is a dynamic language.
 
 The `JSObject` type exposes a generic interface that allows you to access properties and invoke members on any kind of JavaScript object. JSObject's support of the DLR enables direct access of members of JavaScript objects using late binding. For example, you can use a `dynamic` `JSObject` to reference the HTML Document Object Model (DOM), which can contain any combination of valid HTML markup elements and attributes. Because each HTML document is unique, the members for a particular HTML document are determined at run time.
 
@@ -578,7 +582,7 @@ Using the DLR, you can also create custom JavaScript methods or even directly pa
 
 ### Global Class
 
-The [`Global`](http://docs.awesomium.net/?tc=T_Awesomium_Core_Global) class provides access to essential objects of the currently loaded page's JavaScript environment, such as [`window`](https://developer.mozilla.org/en-US/docs/Web/API/Window) and [`document`](https://developer.mozilla.org/en-US/docs/Web/API/document).
+The [`Global`](http://docs.awesomium.net/?tc=T_Awesomium_Core_Global) class provides access to essential objects of the currently loaded page's JavaScript environment, such as [`window` ![][external]](https://developer.mozilla.org/en-US/docs/Web/API/Window) and [`document` ![][external]](https://developer.mozilla.org/en-US/docs/Web/API/document).
 
 An instance of `Global` is available within every **asynchronous** [Javascript Execution Context (JEC)](jec.html) and it can either be accessed through the `Environment` property of the `EventArgs` of a JavaScript-related event (e.g. [`DocumentReadyEventArgs.Environment`](http://docs.awesomium.net/?tc=P_Awesomium_Core_DocumentReadyEventArgs_Environment)), or through [`Global.Current`](http://docs.awesomium.net/?tc=P_Awesomium_Core_Global_Current).
 
@@ -594,7 +598,7 @@ private void OnDocumentReady( object sender, DocumentReadyEventArgs e )
     // When ReadyState is Ready, you can execute JavaScript against
     // the DOM but all resources are not yet loaded. Wait for Loaded.
     if ( e.ReadyState == DocumentReadyState.Ready )
-		return;
+        return;
 
     // Get the current Global environment.
     var global = e.Environment;
