@@ -603,18 +603,18 @@ private void OnDocumentReady( object sender, DocumentReadyEventArgs e )
 		return;
 
     // Create a property descriptor.
-	dynamic propConf = new JSObject();
+    dynamic propConf = new JSObject();
     // We want it to be an accessor descriptor.
-	// We create a synchronous anonymous remote 
-	// Function and bind it to a managed handler.
-	propConf.get = new JSFunction( webControl, 
+    // We create a synchronous anonymous remote 
+    // Function and bind it to a managed handler.
+    propConf.get = new JSFunction( webControl, 
         (JavascriptMethodHandler)onReadOnlyGet );
-	propConf.enumerable = true;
+    propConf.enumerable = true;
 
     // Define a read-only property to the prototype of Node,
-	// the base class of all DOM elements. Accessing the property
-	// will call our 'onReadyOnlyGet' handler.
-	global.Object.defineProperty( 
+    // the base class of all DOM elements. Accessing the property
+    // will call our 'onReadyOnlyGet' handler.
+    global.Object.defineProperty( 
         global.window.Node.prototype, 
         "myReadOnlyProperty", 
         propConf );
@@ -622,7 +622,7 @@ private void OnDocumentReady( object sender, DocumentReadyEventArgs e )
 
 private JSValue onReadOnlyGet( object sender, JavascriptMethodEventArgs e )
 {
-	return ( (IWebView)sender ).CreationTime.ToString();
+    return ( (IWebView)sender ).CreationTime.ToString();
 }
 {% endhighlight %}
 {% highlight vbnet %}
@@ -631,29 +631,29 @@ Option Explicit Off
 [...]
 
 Private Sub OnDocumentReady(sender As Object, e As DocumentReadyEventArgs)
-	' When ReadyState is Ready, you can execute JavaScript against
-	' the DOM but all resources are not yet loaded. Wait for Loaded.
-	If e.ReadyState = DocumentReadyState.Ready Then Return
+    ' When ReadyState is Ready, you can execute JavaScript against
+    ' the DOM but all resources are not yet loaded. Wait for Loaded.
+    If e.ReadyState = DocumentReadyState.Ready Then Return
 
-	' Get the current Global environment.
-	Dim js As [Global] = e.Environment
+    ' Get the current Global environment.
+    Dim js As [Global] = e.Environment
 
     If Not CBool(js) Then Return
 
-	' Create a property descriptor.
-	Dim propConf As Object = New JSObject()
-	' We want it to be an accessor descriptor.
-	' We create a synchronous anonymous remote 
-	' Function and bind it to a managed handler.
-	With propConf
-		.get = New JSFunction(webControl, AddressOf onReadyOnlyGet)
-		.enumerable = True
-	End With
+    ' Create a property descriptor.
+    Dim propConf As Object = New JSObject()
+    ' We want it to be an accessor descriptor.
+    ' We create a synchronous anonymous remote 
+    ' Function and bind it to a managed handler.
+    With propConf
+        .get = New JSFunction(webControl, AddressOf onReadyOnlyGet)
+        .enumerable = True
+    End With
 
-	' Define a read-only property to the prototype of Node,
-	' the base class of all DOM elements. Accessing the property
-	' will call our 'onReadyOnlyGet' handler.
-	js.Object.defineProperty(
+    ' Define a read-only property to the prototype of Node,
+    ' the base class of all DOM elements. Accessing the property
+    ' will call our 'onReadyOnlyGet' handler.
+    js.Object.defineProperty(
         js.window.Node.prototype, 
         "myReadOnlyProperty",
         propConf)
@@ -661,7 +661,7 @@ End Sub
 
 Private Function onReadyOnlyGet(sender As Object,
                                 e As JavascriptMethodEventArgs) As JSValue
-	Return CType(sender, IWebView).CreationTime
+    Return CType(sender, IWebView).CreationTime
 End Function
 {% endhighlight %}
 
@@ -680,7 +680,7 @@ The following JavaScript code adds two listeners to the *`mouseover`* event of a
 {% highlight js %}
 function onMouseOver(e) {
     // Do not pass the event object. This is called
-    // synchronously and any objects passed will be 
+    // synchronously and any objects passed will be
     // stripped out.
     return this.onMouseOverHandler();
 }
@@ -725,7 +725,7 @@ private void OnDocumentReady( object sender, DocumentReadyEventArgs e )
 private JSValue OnMouseOverHandler( object sender, JavascriptMethodEventArgs e )
 {
     // Attempt to cancel bubbling.
-	return false;
+    return false;
 }
 private void OnMouseOverAsyncHandler( object sender, JavascriptMethodEventArgs e )
 {
@@ -769,12 +769,12 @@ End Sub
 Private Function OnMouseOverHandler(sender As Object,
                                     e As JavascriptMethodEventArgs) As JSValue
     ' Attempt to cancel bubbling.
-	Return False
+    Return False
 End Function
 
 Private Sub OnMouseOverAsyncHandler(sender As Object,
                                     e As JavascriptMethodEventArgs)
-	If e.Arguments.Length < 1 Then Return
+    If e.Arguments.Length < 1 Then Return
 
     Dim mouseEvent As JSObject = e.Arguments(0)
 
@@ -783,7 +783,7 @@ Private Sub OnMouseOverAsyncHandler(sender As Object,
     Dim message As String = String.Format("Mouse over header at: {0}x{1}", _ 
         mouseEvent("clientX"), mouseEvent("clientY"))
 
-	Console.WriteLine(message)
+    Console.WriteLine(message)
 End Sub
 {% endhighlight %}
 
@@ -792,16 +792,16 @@ End Sub
 {% highlight csharp %}
 private void OnDocumentReady( object sender, DocumentReadyEventArgs e )
 {
-	// When ReadyState is Ready, you can execute JavaScript against
-	// the DOM but all resources are not yet loaded. Wait for Loaded.
-	if ( e.ReadyState == DocumentReadyState.Ready )
-		return;
+    // When ReadyState is Ready, you can execute JavaScript against
+    // the DOM but all resources are not yet loaded. Wait for Loaded.
+    if ( e.ReadyState == DocumentReadyState.Ready )
+        return;
 
     // Get the current Global environment.
-	var global = e.Environment;
+    var global = e.Environment;
 
-	if ( !global )
-		return;
+    if ( !global )
+        return;
 
     // We will add custom methods to the prototype of Node,
     // the base class of all DOM elements.
@@ -823,7 +823,7 @@ private void OnDocumentReady( object sender, DocumentReadyEventArgs e )
 private JSValue OnMouseOverHandler( object sender, JavascriptMethodEventArgs e )
 {
     // Attempt to cancel bubbling.
-	return false;
+    return false;
 }
 private void OnMouseOverAsyncHandler( object sender, JavascriptMethodEventArgs e )
 {
@@ -839,7 +839,7 @@ private void OnMouseOverAsyncHandler( object sender, JavascriptMethodEventArgs e
     String message = String.Format( "Mouse over header at: {0}x{1}", 
         mouseEvent.clientX, mouseEvent.clientY );
 
-	Console.WriteLine( message );
+    Console.WriteLine( message );
 }
 {% endhighlight %}
 {% highlight vbnet %}
@@ -848,18 +848,18 @@ Option Explicit Off
 [...]
 
 Private Sub OnDocumentReady(sender As Object, e As DocumentReadyEventArgs)
-	' When ReadyState is Ready, you can execute JavaScript against
-	' the DOM but all resources are not yet loaded. Wait for Loaded.
-	If e.ReadyState = DocumentReadyState.Ready Then Return
+    ' When ReadyState is Ready, you can execute JavaScript against
+    ' the DOM but all resources are not yet loaded. Wait for Loaded.
+    If e.ReadyState = DocumentReadyState.Ready Then Return
 
     ' Get the current Global environment.
-	Dim js As [Global] = e.Environment
+    Dim js As [Global] = e.Environment
 
     If Not CBool(js) Then Return
 
     ' We will add custom methods to the prototype of Node,
     ' the base class of all DOM elements.
-	Dim nodePrototype As Object = js.window.Node.prototype
+    Dim nodePrototype As Object = js.window.Node.prototype
 
     ' Note that when a JSObject is converted to a dynamic Object, 
     ' you no longer need to use CBool with the Not operator.
@@ -869,7 +869,7 @@ Private Sub OnDocumentReady(sender As Object, e As DocumentReadyEventArgs)
     ' type and we assign our managed handlers directly. Casting
     ' to the proper delegate tells JSObject what kind of custom 
     ' methods to create, synchronous or asynchronous.
-	nodePrototype.onMouseOverHandler = _
+    nodePrototype.onMouseOverHandler = _
         CType(AddressOf OnMouseOverHandler, JavascriptMethodHandler)
     nodePrototype.onMouseOverAsyncHandler = _
         CType(AddressOf OnMouseOverAsyncHandler, JavascriptAsyncMethodHandler)
@@ -878,12 +878,12 @@ End Sub
 Private Function OnMouseOverHandler(sender As Object,
                                     e As JavascriptMethodEventArgs) As JSValue
     ' Attempt to cancel bubbling.
-	Return False
+    Return False
 End Function
 
 Private Sub OnMouseOverAsyncHandler(sender As Object,
                                     e As JavascriptMethodEventArgs)
-	If e.Arguments.Length < 1 Then Return
+    If e.Arguments.Length < 1 Then Return
 
     Dim mouseEvent As Object = CType(e.Arguments(0), JSObject)
 
@@ -893,7 +893,7 @@ Private Sub OnMouseOverAsyncHandler(sender As Object,
     Dim message As String = String.Format("Mouse over header at: {0}x{1}", _ 
         mouseEvent.clientX, mouseEvent.clientY)
 
-	Console.WriteLine(message)
+    Console.WriteLine(message)
 End Sub
 {% endhighlight %}
 
@@ -1013,19 +1013,19 @@ dynamic myObject = null;
 
 try
 {
-	myObject = (JSObject)webView.ExecuteJavascriptWithResult( "myObject" );
+    myObject = (JSObject)webView.ExecuteJavascriptWithResult( "myObject" );
 	
-	if ( !myObject )
-	    return;
+    if ( !myObject )
+        return;
 	
-	using ( myObject ) {
-	    // If the object has not a function member |myMethod|,
-	    // this call will cause a binding error.
-	    myObject.myMethod();
-	    // The object does not represent a JavaScript |function|
-	    // object. This will also cause a binding error.
-	    myObject();
-	}
+    using ( myObject ) {
+        // If the object has not a function member |myMethod|,
+        // this call will cause a binding error.
+        myObject.myMethod();
+        // The object does not represent a JavaScript |function|
+        // object. This will also cause a binding error.
+        myObject();
+    }
 }
 catch ( Exception ex )
 {
@@ -1054,8 +1054,8 @@ Try
     End If
 
     Using myObject
-	    ' If the object has not a function member |myMethod|,
-	    ' this call will cause a binding error.
+        ' If the object has not a function member |myMethod|,
+        ' this call will cause a binding error.
         myObject.myMethod()
         ' This is prevented by the VB compiler itself.
         'myObject()
