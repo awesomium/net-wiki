@@ -51,41 +51,68 @@
         
         <h3 class="header switch-container">
           <div class="switch-text">Language:</div>
-          <div class="switch off"><span class="thumb"></span><input type="checkbox" /></div>
+          <div class="switch off"><span class="thumb"></span><input type="checkbox"></div>
           <div class="clear"></div>
         </h3>
         
         
         <script>
-		(function() {
-			var $$ = function(selector) {
-				return Array.prototype.slice.call(document.querySelectorAll(selector));
-			}
-			document.addEventListener("DOMContentLoaded", function() {
-				var checkbox;
-				var result = document.querySelector("#result");
-				$$(".switch").forEach(function(switchControl) {
-					if (switchControl.className === ("switch off")) {
-						switchControl.lastElementChild.checked = false;
-					}
-					switchControl.addEventListener("click", function toggleSwitch() {
-						if (switchControl.className === "switch on") {
-							switchControl.className = 'switch off';
-						} else {
-							switchControl.className = ("switch on");
-						}
-						checkbox = switchControl.lastElementChild;
-						checkbox.checked = !checkbox.checked;
-						if (checkbox.checked === true) {
-							location.href = "http://wiki.awesomium.com";
-						} else {
-							location.href = "http://wiki.awesomium.net";
-						}
-					}, false);
-				});
-			}, false);
-		})()
-	    </script>
+        (function() {
+            var $$ = function(selector) {
+                return Array.prototype.slice.call(document.querySelectorAll(selector));
+            }
+            document.addEventListener("DOMContentLoaded", function() {
+                var checkbox;
+                var result = document.querySelector("#result");
+                $$(".switch").forEach(function(switchControl) {
+                    if (switchControl.className === ("switch off")) {
+                        switchControl.lastElementChild.checked = false;
+                    }
+                    switchControl.addEventListener("click", function() {
+                        if (switchControl.className === "switch on") {
+                            switchControl.className = 'switch off';
+                        } else {
+                            switchControl.className = ("switch on");
+                        }
+                        checkbox = switchControl.lastElementChild;
+                        checkbox.checked = !checkbox.checked;
+                        if (checkbox.checked === true) {
+                            location.href = "http://wiki.awesomium.com";
+                        } else {
+                            location.href = "http://wiki.awesomium.net";
+                        }
+                    }, false);
+                });
+                toggleDotNetLanguage(false);
+                if (($( ".language-csharp" ).length === 0) || ($( ".language-vbnet" ).length === 0)) {
+                    $(".langswitch-container").hide();
+                } else {
+                    $$(".langswitch").forEach(function(switchControl) {
+                        switchControl.addEventListener("click", function() {
+                            if (switchControl.className === "langswitch on") {
+                                switchControl.className = 'langswitch off';
+                            } else {
+                                switchControl.className = ("langswitch on");
+                            }                            
+                            checkbox = switchControl.lastElementChild;
+                            checkbox.checked = !checkbox.checked;
+                            toggleDotNetLanguage(checkbox.checked);
+                        }, false);
+                    });
+                }
+            }, false);
+        })();
+        
+        function toggleDotNetLanguage(checkboxChecked) {
+            if (checkboxChecked === true) {
+                $( ".language-csharp" ).parent().closest("figure").hide();
+                $( ".language-vbnet" ).parent().closest("figure").show();
+            } else {
+                $( ".language-vbnet" ).parent().closest("figure").hide();
+                $( ".language-csharp" ).parent().closest("figure").show();
+            }
+        }
+        </script>
         
         <h3 class="header">Categories</h3>
         
@@ -93,7 +120,15 @@
         
         <p class="header"><a href="/general-use">General Use</a></p>
         
-        <p class="header"><a href="/tutorials">Tutorials</a></p>
+        <p class="header"><a href="/javascript">JavaScript Integration</a></p>
+        
+        <p class="header"><a href="/wpf">WPF</a></p>
+        
+        <p class="header"><a href="/winforms">Windows Forms</a></p>
+        
+        <p class="header"><a href="/monomac">MonoMac</a></p>
+        
+        <p class="header"><a href="/unity">Unity</a></p>
         
         <p class="header"><a href="/changelogs">Changelogs</a></p>
         
@@ -107,7 +142,7 @@
       </section>
 
       <footer>
-        <p><small>&copy; Awesomium Team 2013</small></p>
+        <p><small>&copy; Awesomium Team 2016</small></p>
         <p><small><a href="https://github.com/khrona/awesomium-net-wiki">Fork Me on GitHub</a></small></p>
       </footer>
     </div>

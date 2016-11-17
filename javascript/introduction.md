@@ -1124,13 +1124,17 @@ myObject.myMethod()
 ' The above error will exit the JEC routine.
 {% endhighlight %}
 
-## Additional Resources
+## See Also
 
-For more details and examples about Javascript Integration in Awesomium.NET, read the following articles:
+#### Other Resources
 
 * [Synchronous & Asynchronous API](sync_async_js_api.html)
 * [JavaScript Interoperation Framework (JIF)](jif.html)
 * [Javascript Execution Context (JEC)](jec.html)
+* [Dynamic Language Runtime (DLR) Support](dlr.html)
+
+#### Tasks
+
 * [How to: Create Custom JavaScript Methods](custom-javascript-methods.html)
 * [How to: Create a Custom JSObject](custom-jsobjects.html)
 
