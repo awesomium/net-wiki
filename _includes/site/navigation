@@ -39,7 +39,7 @@
                     }, false);
                 });
                 toggleDotNetLanguage(false);
-                if (($( ".language-csharp" ).length === 0) || ($( ".language-vbnet" ).length === 0)) {
+                if (($( ".language-csharp" ).length === 0) || ($( ".language-vb" ).length === 0)) {
                     $(".langswitch-container").hide();
                 } else {
                     $$(".langswitch").forEach(function(switchControl) {
@@ -48,7 +48,7 @@
                                 switchControl.className = 'langswitch off';
                             } else {
                                 switchControl.className = ("langswitch on");
-                            }                            
+                            }
                             checkbox = switchControl.lastElementChild;
                             checkbox.checked = !checkbox.checked;
                             toggleDotNetLanguage(checkbox.checked);
@@ -61,9 +61,9 @@
         function toggleDotNetLanguage(checkboxChecked) {
             if (checkboxChecked === true) {
                 $( ".language-csharp" ).parent().closest("figure").hide();
-                $( ".language-vbnet" ).parent().closest("figure").show();
+                $( ".language-vb" ).parent().closest("figure").show();
             } else {
-                $( ".language-vbnet" ).parent().closest("figure").hide();
+                $( ".language-vb" ).parent().closest("figure").hide();
                 $( ".language-csharp" ).parent().closest("figure").show();
             }
         }
