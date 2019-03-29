@@ -32,9 +32,9 @@
                         checkbox = switchControl.lastElementChild;
                         checkbox.checked = !checkbox.checked;
                         if (checkbox.checked === true) {
-                            location.href = "http://wiki.awesomium.com";
+                            location.href = "http://awesomium.github.io/wiki";
                         } else {
-                            location.href = "http://wiki.awesomium.net";
+                            location.href = "http://awesomium.github.io/net-wiki";
                         }
                     }, false);
                 });
